@@ -31,7 +31,7 @@ export function Hero() {
               View Projects
             </a>
             <a
-              href="/Tanmay_Kotak_Resume.pdf"
+              href="/TanmayKotakResume.pdf"
               className="inline-flex items-center rounded-full border border-white/10 bg-[#0A0A0A] px-5 py-2.5 text-xs font-medium uppercase tracking-[0.2em] text-white transition hover:border-[#A970FF]/70 hover:bg-[#A970FF]/10"
               download
             >

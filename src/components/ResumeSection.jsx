@@ -16,7 +16,7 @@ export function ResumeSection() {
           </div>
           <div>
             <a
-              href="/Tanmay_Kotak_Resume.pdf"
+              href="/TanmayKotakResume.pdf"
               download
               className="inline-flex items-center rounded-full border border-[#A970FF]/90 bg-[#A970FF]/15 px-6 py-2.5 text-xs font-medium uppercase tracking-[0.2em] text-[#A970FF] transition hover:bg-[#A970FF]/25"
             >
