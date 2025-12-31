@@ -11,7 +11,7 @@ const PROJECTS = [
     ],
     underDevelopment: true, 
     live: null,
-    github: null,
+    github: "https://github.com/TanmayKQ/IntelStudy.git",
   },
   {
     title: "FantasyBoost — Fantasy Football Recommendation Engine",
