@@ -68,12 +68,12 @@ export function Skills() {
                         {group.category}
                       </h3>
                     </div>
-                    <span className="font-mono text-[10px] text-zinc-500">
+                    <span className="font-mono text-[10px] text-zinc-400">
                       0{idx + 1}
                     </span>
                   </div>
 
-                  <p className="text-xs text-zinc-400 leading-relaxed mb-4">
+                  <p className="text-xs text-zinc-300 leading-relaxed mb-4">
                     {group.description}
                   </p>
 
@@ -91,7 +91,7 @@ export function Skills() {
                           className={`relative cursor-default rounded-md border px-3 py-1.5 font-mono text-xs transition-all ${
                             isHovered
                               ? "border-cyan-neon bg-cyan-dim text-white shadow-[0_0_12px_rgba(0,240,255,0.25)]"
-                              : "border-base-border bg-base-subtle/70 text-zinc-300 hover:border-zinc-600"
+                              : "border-base-border bg-base-subtle/70 text-zinc-200 hover:border-zinc-500"
                           }`}
                         >
                           <span>{skill}</span>
@@ -109,7 +109,7 @@ export function Skills() {
                   </div>
                 </div>
 
-                <div className="mt-6 pt-3 border-t border-base-border/50 flex items-center justify-between text-[10px] font-mono text-zinc-500">
+                <div className="mt-6 pt-3 border-t border-base-border/50 flex items-center justify-between text-[10px] font-mono text-zinc-400">
                   <span>{group.skills.length} verified technologies</span>
                   <span className="text-cyan-neon font-mono">Defensible</span>
                 </div>

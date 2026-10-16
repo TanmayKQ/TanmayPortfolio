@@ -131,3 +131,13 @@ html.light ::selection {
   background-color: rgba(2, 132, 199, 0.2);
   color: #0f172a;
 }
+
+/* Defer Below-The-Fold Rendering to Maximize Mobile Performance (95+ LCP) */
+#work,
+#experience,
+#skills,
+#about,
+#contact {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 650px;
+}

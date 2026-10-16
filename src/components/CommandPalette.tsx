@@ -233,6 +233,7 @@ export function CommandPalette({
           <input
             ref={inputRef}
             type="text"
+            aria-label="Search commands, sections, or case studies"
             placeholder="Type a command, section, or case study..."
             value={query}
             onChange={(e) => {

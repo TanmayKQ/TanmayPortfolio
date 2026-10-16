@@ -52,7 +52,7 @@ export function Projects() {
               <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
                 {/* Information / Narrative Column (5 cols) */}
                 <div className="space-y-5 lg:col-span-5">
-                  <div className="flex items-center gap-2 font-mono text-xs text-zinc-500">
+                  <div className="flex items-center gap-2 font-mono text-xs text-zinc-400">
                     <span className="text-cyan-neon font-bold">PROJECT 0{idx + 1}</span>
                     <span>&mdash;</span>
                     <span className="uppercase">{project.shortTitle}</span>

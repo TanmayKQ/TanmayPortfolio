@@ -104,8 +104,8 @@ export function DocMindRetrievalVisual() {
                 }`}
               >
                 <div className="flex items-center justify-between text-[10px] font-mono">
-                  <span>0{idx + 1}</span>
-                  <span className={isCurrent ? "text-cyan-neon font-bold" : "text-zinc-500"}>
+                  <span className="text-zinc-400">0{idx + 1}</span>
+                  <span className={isCurrent ? "text-cyan-neon font-bold" : isCompleted ? "text-emerald-neon font-semibold" : "text-zinc-400"}>
                     {isCurrent ? "ACTIVE" : isCompleted ? "PASS" : "WAIT"}
                   </span>
                 </div>
@@ -119,33 +119,33 @@ export function DocMindRetrievalVisual() {
 
         {/* Dynamic Detail Panel */}
         <div className="rounded-lg border border-base-border bg-base-subtle/60 p-3 font-mono text-xs">
-          <div className="flex items-center justify-between text-[10px] text-zinc-500 uppercase tracking-widest pb-1.5 border-b border-base-border">
+          <div className="flex items-center justify-between text-[10px] text-zinc-400 uppercase tracking-widest pb-1.5 border-b border-base-border">
             <span>Stage Inspector</span>
             <span className="text-cyan-neon">Latency: 28.4ms</span>
           </div>
-          <p className="mt-2 text-zinc-300">
+          <p className="mt-2 text-zinc-200">
             {RETRIEVAL_STEPS[activeStep].detail}
           </p>
         </div>
 
         {/* Code / Stream Output Preview */}
         <div className="rounded-lg border border-base-border bg-black/70 p-3 font-mono text-xs">
-          <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/5 text-[10px] text-zinc-500">
+          <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/5 text-[10px] text-zinc-400">
             <span className="flex items-center gap-1.5">
               <Terminal className="h-3 w-3 text-cyan-neon" />
               <span>REACT SSE TYPING INTERFACE (ZERO-BACKEND MOCK)</span>
             </span>
-            <span className="text-emerald-neon">{tokenCount} tokens streamed</span>
+            <span className="text-emerald-neon font-semibold">{tokenCount} tokens streamed</span>
           </div>
 
-          <div className="min-h-[56px] text-zinc-300 leading-relaxed">
+          <div className="min-h-[56px] text-zinc-200 leading-relaxed">
             {activeStep === 4 ? (
               <span>
                 {streamedText}
                 <span className="inline-block w-1.5 h-3.5 ml-1 bg-cyan-neon animate-pulse align-middle" />
               </span>
             ) : (
-              <span className="text-zinc-500 italic">
+              <span className="text-zinc-400 italic">
                 Awaiting stage 05: Token stream initializes once PostgreSQL CTE merge resolves candidate chunks...
               </span>
             )}

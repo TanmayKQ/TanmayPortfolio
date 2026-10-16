@@ -11,9 +11,9 @@ export function Hero() {
       aria-label="Introduction and Overview"
       className="relative overflow-hidden pt-6 pb-16 md:pt-12 md:pb-24"
     >
-      {/* Background subtle radial glow */}
+      {/* Background subtle radial glow with 0ms blur overhead */}
       <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
-        <div className="h-[480px] w-[600px] rounded-full bg-cyan-neon/5 blur-[120px]" />
+        <div className="h-[480px] w-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(0,240,255,0.08)_0%,_transparent_70%)]" />
       </div>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

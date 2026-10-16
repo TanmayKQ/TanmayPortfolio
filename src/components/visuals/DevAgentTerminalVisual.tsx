@@ -175,6 +175,7 @@ export function DevAgentTerminalVisual() {
             </div>
             <input
               type="range"
+              aria-label="Scrub replay timeline"
               min="0"
               max={REPLAY_FRAMES.length - 1}
               value={currentFrameIndex}

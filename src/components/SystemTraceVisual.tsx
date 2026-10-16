@@ -98,7 +98,7 @@ export function SystemTraceVisual() {
       {/* Main Architecture Flow Grid */}
       <div className="p-4 sm:p-5">
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500">
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400">
             Trace Nodes &middot; Round-Trip Latency: 184ms
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-dim px-2 py-0.5 font-mono text-[10px] text-emerald-neon">
@@ -122,8 +122,8 @@ export function SystemTraceVisual() {
                   isActive
                     ? "border-cyan-neon bg-cyan-dim/40 shadow-[0_0_20px_rgba(0,240,255,0.18)]"
                     : isCompleted
-                    ? "border-base-border bg-base-subtle/50 text-zinc-300"
-                    : "border-base-border/60 bg-base-subtle/20 text-zinc-500"
+                    ? "border-base-border bg-base-subtle/50 text-zinc-200"
+                    : "border-base-border/60 bg-base-subtle/20 text-zinc-400"
                 }`}
               >
                 <div className="flex w-full items-center justify-between">
@@ -133,14 +133,14 @@ export function SystemTraceVisual() {
                         ? "bg-cyan-neon/20 text-cyan-neon"
                         : isCompleted
                         ? "bg-emerald-dim text-emerald-neon"
-                        : "bg-white/5 text-zinc-500"
+                        : "bg-white/5 text-zinc-400"
                     }`}
                   >
                     <Icon className="h-3.5 w-3.5" />
                   </div>
                   <span
                     className={`font-mono text-[10px] ${
-                      isActive ? "text-cyan-neon font-semibold" : "text-zinc-500"
+                      isActive ? "text-cyan-neon font-semibold" : "text-zinc-400"
                     }`}
                   >
                     {node.latency}
@@ -150,27 +150,27 @@ export function SystemTraceVisual() {
                 <div className="mt-2 w-full">
                   <p
                     className={`font-mono text-xs font-medium ${
-                      isActive ? "text-white" : "text-zinc-300"
+                      isActive ? "text-white" : "text-zinc-200"
                     }`}
                   >
                     {node.label}
                   </p>
-                  <p className="truncate font-mono text-[10px] text-zinc-400">
+                  <p className="truncate font-mono text-[10px] text-zinc-300">
                     {node.sub}
                   </p>
                 </div>
 
                 <div className="mt-2 flex w-full items-center justify-between border-t border-white/5 pt-1.5">
-                  <span className="font-mono text-[9px] text-zinc-500">
+                  <span className="font-mono text-[9px] text-zinc-400">
                     STEP 0{index + 1}
                   </span>
                   <span
                     className={`font-mono text-[9px] px-1 rounded ${
                       isActive
-                        ? "bg-cyan-neon/20 text-cyan-neon font-medium"
+                        ? "bg-cyan-neon/30 text-cyan-200 font-medium"
                         : isCompleted
-                        ? "bg-emerald-neon/10 text-emerald-neon"
-                        : "text-zinc-500"
+                        ? "bg-emerald-neon/15 text-emerald-300"
+                        : "text-zinc-400"
                     }`}
                   >
                     {isActive ? "ACTIVE" : isCompleted ? "OK" : "QUEUED"}

@@ -39,7 +39,7 @@ export function BeautyBangsLighthouseVisual() {
         {/* Left Column: Lighthouse Score Rings & Checklist */}
         <div className="space-y-6">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500">
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400">
               Google Lighthouse Mobile Audit
             </span>
             <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">

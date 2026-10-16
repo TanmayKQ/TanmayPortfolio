@@ -7,13 +7,15 @@ import { VERIFIED_LINKS } from "@/data/projects";
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space",
-  display: "swap",
+  display: "optional",
+  preload: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  display: "swap",
+  display: "optional",
+  preload: true,
 });
 
 export const viewport: Viewport = {

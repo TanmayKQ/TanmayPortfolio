@@ -87,16 +87,16 @@ export function AsnStateMachineVisual() {
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] text-zinc-500">0{idx + 1}</span>
+                <span className="text-[10px] text-zinc-400">0{idx + 1}</span>
                 <span
                   className={`text-[9px] px-1 py-0.5 rounded font-mono ${
                     isCurrent
                       ? rollbackTriggered
-                        ? "bg-rose-500/20 text-rose-300"
-                        : "bg-cyan-neon/20 text-cyan-neon"
+                        ? "bg-rose-500/30 text-rose-200"
+                        : "bg-cyan-neon/30 text-cyan-200 font-semibold"
                       : isPast
                       ? "bg-emerald-dim text-emerald-neon"
-                      : "text-zinc-600"
+                      : "text-zinc-400 bg-white/5"
                   }`}
                 >
                   {isCurrent ? "ACTIVE" : isPast ? "DONE" : "IDLE"}
@@ -104,12 +104,12 @@ export function AsnStateMachineVisual() {
               </div>
               <p
                 className={`mt-2 font-mono text-xs font-semibold ${
-                  isCurrent ? "text-white" : "text-zinc-300"
+                  isCurrent ? "text-white" : "text-zinc-200"
                 }`}
               >
                 {state.name}
               </p>
-              <p className="mt-1 text-[10px] text-zinc-400 leading-tight">
+              <p className="mt-1 text-[10px] text-zinc-300 leading-tight">
                 {state.desc}
               </p>
             </div>

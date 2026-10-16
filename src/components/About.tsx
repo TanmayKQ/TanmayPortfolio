@@ -28,7 +28,7 @@ export function About() {
           {/* Main Narrative Column (7 cols) */}
           <div className="space-y-6 lg:col-span-7">
             <div className="rounded-2xl border border-base-border bg-base-card p-6 sm:p-8 space-y-5">
-              <div className="flex items-center gap-2 font-mono text-xs text-zinc-500 pb-2 border-b border-base-border">
+              <div className="flex items-center gap-2 font-mono text-xs text-zinc-400 pb-2 border-b border-base-border">
                 <Terminal className="h-3.5 w-3.5 text-cyan-neon" />
                 <span>ENGINEERING PHILOSOPHY</span>
               </div>
@@ -72,7 +72,7 @@ export function About() {
 
             {/* Mono Key/Value Side Card */}
             <div className="rounded-2xl border border-base-border bg-base-card p-6 font-mono text-xs">
-              <div className="text-[10px] text-zinc-500 uppercase tracking-widest pb-3 border-b border-base-border mb-4">
+              <div className="text-[10px] text-zinc-400 uppercase tracking-widest pb-3 border-b border-base-border mb-4">
                 Core Profile Metadata
               </div>
 

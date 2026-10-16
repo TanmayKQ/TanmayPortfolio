@@ -215,6 +215,7 @@ export function EasterEggTerminal({
             <input
               ref={inputRef}
               type="text"
+              aria-label="Terminal command prompt"
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
               onKeyDown={handleKeyDown}

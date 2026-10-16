@@ -75,7 +75,7 @@ export function ProofStrip() {
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-4 flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-cyan-neon" />
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-500">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-400">
             Verified Engineering Metrics
           </span>
         </div>
@@ -91,7 +91,7 @@ export function ProofStrip() {
                 <p className="font-mono text-xs font-semibold uppercase tracking-wider text-zinc-200">
                   {stat.label}
                 </p>
-                <p className="mt-0.5 text-[11px] leading-tight text-zinc-400">
+                <p className="mt-0.5 text-[11px] leading-tight text-zinc-300">
                   {stat.detail}
                 </p>
               </div>
