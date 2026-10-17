@@ -53,6 +53,19 @@ export default function ResumePage() {
         </div>
       </header>
 
+      {/* Mobile helper notice */}
+      <div className="flex sm:hidden items-center justify-between px-4 py-2 bg-base-card border-b border-base-border text-[11px] text-zinc-400">
+        <span>Viewing on mobile?</span>
+        <a
+          href={VERIFIED_LINKS.resumePdf}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-accent-light underline font-medium"
+        >
+          Open in native viewer &rarr;
+        </a>
+      </div>
+
       {/* Main Preview Container */}
       <main className="flex-1 w-full bg-zinc-950 flex flex-col">
         <iframe

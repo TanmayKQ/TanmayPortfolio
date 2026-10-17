@@ -152,6 +152,8 @@ export function DocMindRetrievalVisual({ variant = "compact" }: { variant?: "com
                 onClick={() => setActiveStep(idx)}
                 type="button"
                 className={`flex flex-col text-left p-2.5 rounded-lg border transition-all ${
+                  idx === 4 ? "col-span-2 sm:col-span-1" : ""
+                } ${
                   isSelected
                     ? "border-accent bg-accent-dim text-white ring-1 ring-accent/30"
                     : isPast
@@ -202,11 +204,11 @@ export function DocMindRetrievalVisual({ variant = "compact" }: { variant?: "com
             {currentStage.details}
           </p>
 
-          <div className="rounded border border-base-border bg-black/60 p-2.5 text-[11px] overflow-x-auto">
+          <div className="rounded border border-base-border bg-black/60 p-2.5 text-[11px] overflow-x-auto touch-scroll">
             <span className="text-[10px] text-zinc-400 uppercase tracking-wider block mb-1">
               Payload / Logic Contract:
             </span>
-            <pre className="text-zinc-200 whitespace-pre-wrap font-mono leading-relaxed">
+            <pre className="text-zinc-200 whitespace-pre-wrap break-words font-mono leading-relaxed">
               {currentStage.codeOrData}
             </pre>
           </div>

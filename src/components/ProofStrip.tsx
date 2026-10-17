@@ -79,11 +79,13 @@ export function ProofStrip() {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-3 lg:grid-cols-5">
           {PROOF_STATS.map((stat, idx) => (
             <div
               key={idx}
-              className="flex flex-col justify-between border-l border-base-border pl-4 transition-colors hover:border-accent/50"
+              className={`flex flex-col justify-between border-l border-base-border pl-3 sm:pl-4 transition-colors hover:border-accent/50 ${
+                idx === 4 ? "col-span-2 sm:col-span-1" : ""
+              }`}
             >
               <StatCounter target={stat.value} suffix={stat.suffix} />
               <div className="mt-2">

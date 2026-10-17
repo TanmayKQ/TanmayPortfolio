@@ -139,10 +139,10 @@ export function IntelStudyCircuitVisual() {
 
       <div className="p-4 sm:p-5 space-y-4">
         {/* State Representation Cards */}
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           {/* CLOSED Card */}
           <div
-            className={`p-3 rounded-lg border text-left transition-all ${
+            className={`p-2.5 sm:p-3 rounded-lg border text-left transition-all ${
               state === "CLOSED"
                 ? "border-emerald-neon bg-emerald-dim ring-1 ring-emerald-neon/30 text-white"
                 : "border-base-border bg-base-subtle/40 text-zinc-500"
@@ -162,7 +162,7 @@ export function IntelStudyCircuitVisual() {
 
           {/* OPEN Card */}
           <div
-            className={`p-3 rounded-lg border text-left transition-all ${
+            className={`p-2.5 sm:p-3 rounded-lg border text-left transition-all ${
               state === "OPEN"
                 ? "border-rose-500 bg-rose-950/30 ring-1 ring-rose-500/40 text-white"
                 : "border-base-border bg-base-subtle/40 text-zinc-500"
@@ -182,7 +182,7 @@ export function IntelStudyCircuitVisual() {
 
           {/* HALF-OPEN Card */}
           <div
-            className={`p-3 rounded-lg border text-left transition-all ${
+            className={`p-2.5 sm:p-3 rounded-lg border text-left transition-all ${
               state === "HALF_OPEN"
                 ? "border-amber-neon bg-amber-dim ring-1 ring-amber-neon/30 text-white"
                 : "border-base-border bg-base-subtle/40 text-zinc-500"
@@ -207,7 +207,7 @@ export function IntelStudyCircuitVisual() {
             <button
               onClick={simulateFailure}
               type="button"
-              className="flex items-center gap-1.5 rounded border border-rose-500/40 bg-rose-500/10 px-3 py-1.5 text-rose-300 hover:bg-rose-500/20 transition font-medium"
+              className="w-full sm:w-auto justify-center flex items-center gap-1.5 rounded border border-rose-500/40 bg-rose-500/10 px-3.5 py-2 text-rose-300 hover:bg-rose-500/20 transition font-medium"
             >
               <Zap className="h-3.5 w-3.5 text-rose-400" />
               <span>Simulate API Timeout ({failures}/3)</span>
@@ -218,7 +218,7 @@ export function IntelStudyCircuitVisual() {
             <button
               onClick={simulateCooldown}
               type="button"
-              className="flex items-center gap-1.5 rounded border border-amber-neon/40 bg-amber-dim px-3 py-1.5 text-amber-neon hover:bg-amber-neon/20 transition font-medium"
+              className="w-full sm:w-auto justify-center flex items-center gap-1.5 rounded border border-amber-neon/40 bg-amber-dim px-3.5 py-2 text-amber-neon hover:bg-amber-neon/20 transition font-medium"
             >
               <Clock className="h-3.5 w-3.5 text-amber-neon" />
               <span>Simulate Cooldown (Trip to Half-Open)</span>
@@ -230,7 +230,7 @@ export function IntelStudyCircuitVisual() {
               <button
                 onClick={simulateProbeSuccess}
                 type="button"
-                className="flex items-center gap-1.5 rounded border border-emerald-neon/40 bg-emerald-dim px-3 py-1.5 text-emerald-neon hover:bg-emerald-neon/20 transition font-medium"
+                className="w-full sm:w-auto justify-center flex items-center gap-1.5 rounded border border-emerald-neon/40 bg-emerald-dim px-3.5 py-2 text-emerald-neon hover:bg-emerald-neon/20 transition font-medium"
               >
                 <CheckCircle className="h-3.5 w-3.5" />
                 <span>Simulate Probe Success (Close Circuit)</span>
@@ -239,7 +239,7 @@ export function IntelStudyCircuitVisual() {
               <button
                 onClick={simulateProbeFailure}
                 type="button"
-                className="flex items-center gap-1.5 rounded border border-rose-500/40 bg-rose-500/10 px-3 py-1.5 text-rose-300 hover:bg-rose-500/20 transition font-medium"
+                className="w-full sm:w-auto justify-center flex items-center gap-1.5 rounded border border-rose-500/40 bg-rose-500/10 px-3.5 py-2 text-rose-300 hover:bg-rose-500/20 transition font-medium"
               >
                 <ShieldAlert className="h-3.5 w-3.5 text-rose-400" />
                 <span>Simulate Probe Failure (Re-Open)</span>

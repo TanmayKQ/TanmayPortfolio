@@ -155,7 +155,7 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={mobileMenuOpen}
-            className="flex h-8 w-8 items-center justify-center rounded-md border border-base-border bg-base-card text-zinc-300 md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-base-border bg-base-card text-zinc-300 md:hidden"
           >
             {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -165,8 +165,8 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
         <div className="border-b border-base-border bg-base-dark/98 px-4 py-4 backdrop-blur-lg md:hidden">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2 pb-2 border-b border-base-border text-xs font-mono text-zinc-400">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2 pb-2.5 mb-1 border-b border-base-border text-xs font-mono text-zinc-400">
               <span className="h-2 w-2 rounded-full bg-emerald-neon" />
               <span>Open to internships &amp; full-time roles</span>
             </div>
@@ -176,7 +176,7 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-1.5 text-sm font-mono tracking-wider text-zinc-200 hover:text-accent-light"
+                className="flex items-center min-h-[42px] px-2.5 rounded-md hover:bg-base-subtle text-sm font-mono tracking-wider text-zinc-200 hover:text-accent-light transition"
               >
                 // {link.label}
               </Link>
@@ -189,7 +189,7 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
                   setMobileMenuOpen(false);
                   openResumeModal();
                 }}
-                className="flex items-center justify-center gap-2 rounded border border-accent/50 bg-accent-dim py-2 font-mono text-xs text-accent-light font-medium"
+                className="flex items-center justify-center gap-2 rounded-md border border-accent/50 bg-accent-dim min-h-[42px] py-2 font-mono text-xs text-accent-light font-medium"
               >
                 <Eye className="h-3.5 w-3.5" />
                 Preview Resume
@@ -197,7 +197,7 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
               <a
                 href={VERIFIED_LINKS.resumePdf}
                 download="TanmayKotakResume.pdf"
-                className="flex items-center justify-center gap-2 rounded border border-base-border bg-base-card py-2 font-mono text-xs text-zinc-300 font-medium hover:border-accent hover:text-accent-light"
+                className="flex items-center justify-center gap-2 rounded-md border border-base-border bg-base-card min-h-[42px] py-2 font-mono text-xs text-zinc-300 font-medium hover:border-accent hover:text-accent-light"
               >
                 <ArrowDownToLine className="h-3.5 w-3.5" />
                 Download Resume (PDF)
@@ -207,7 +207,7 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
                   setMobileMenuOpen(false);
                   onOpenCommandPalette?.();
                 }}
-                className="flex items-center justify-center gap-2 rounded border border-base-border bg-base-card py-2 font-mono text-xs text-zinc-300"
+                className="flex items-center justify-center gap-2 rounded-md border border-base-border bg-base-card min-h-[42px] py-2 font-mono text-xs text-zinc-300"
               >
                 <Command className="h-3.5 w-3.5" />
                 Open Command Menu

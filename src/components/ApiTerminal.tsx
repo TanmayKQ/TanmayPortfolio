@@ -225,8 +225,8 @@ export function ApiTerminal() {
   return (
     <div className="w-full space-y-3">
       {/* Top Profile Status Chip */}
-      <div className="inline-flex items-center gap-3 rounded-full border border-base-border bg-base-card/90 px-3.5 py-1.5 shadow-sm">
-        <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border border-accent/40 bg-base-subtle">
+      <div className="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl sm:rounded-full border border-base-border bg-base-card/90 px-3 py-2 sm:px-3.5 sm:py-1.5 shadow-sm max-w-full">
+        <div className="relative h-8 w-8 sm:h-9 sm:w-9 shrink-0 overflow-hidden rounded-full border border-accent/40 bg-base-subtle">
           <Image
             src="/IMG-20251114-WA0081.jpg"
             alt="Tanmay Kotak"
@@ -236,9 +236,9 @@ export function ApiTerminal() {
             priority
           />
         </div>
-        <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-emerald-neon animate-pulse" />
-          <span className="font-mono text-xs text-zinc-200">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="h-2 w-2 rounded-full bg-emerald-neon animate-pulse shrink-0" />
+          <span className="font-mono text-[11px] sm:text-xs text-zinc-200 leading-snug">
             Open to SDE / Backend / AI Engineer internships and full-time roles
           </span>
         </div>
@@ -251,14 +251,14 @@ export function ApiTerminal() {
         className="rounded-xl border border-base-border bg-base-card shadow-2xl overflow-hidden font-mono text-xs"
       >
         {/* Terminal Chrome Bar */}
-        <div className="flex items-center justify-between border-b border-base-border bg-base-subtle/80 px-4 py-2.5">
+        <div className="flex items-center justify-between border-b border-base-border bg-base-subtle/80 px-3 sm:px-4 py-2.5">
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1.5">
               <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80 inline-block" />
               <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80 inline-block" />
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-neon/80 inline-block" />
             </div>
-            <span className="ml-2 font-mono text-[11px] text-zinc-400">
+            <span className="ml-1 sm:ml-2 font-mono text-[10px] sm:text-[11px] text-zinc-400">
               tanmay@portfolio &mdash; zsh
             </span>
           </div>
@@ -267,7 +267,7 @@ export function ApiTerminal() {
             onClick={handleCopy}
             type="button"
             aria-label="Copy curl command to clipboard"
-            className="flex items-center gap-1.5 rounded border border-base-border bg-base-card px-2 py-1 text-[11px] text-zinc-300 hover:border-accent hover:text-accent-light transition"
+            className="flex items-center gap-1.5 rounded border border-base-border bg-base-card px-2 py-1 text-[10px] sm:text-[11px] text-zinc-300 hover:border-accent hover:text-accent-light transition"
           >
             {isCopied ? (
               <>
@@ -287,7 +287,7 @@ export function ApiTerminal() {
         <div
           role="tablist"
           aria-label="API Endpoints"
-          className="flex items-center gap-1 border-b border-base-border bg-black/40 px-3 py-1.5 overflow-x-auto"
+          className="flex items-center gap-1 border-b border-base-border bg-black/40 px-2 sm:px-3 py-1.5 overflow-x-auto no-scrollbar touch-scroll"
         >
           {(["me", "projects", "experience", "contact"] as ApiTab[]).map((tab) => {
             const isSelected = activeTab === tab;
@@ -301,7 +301,7 @@ export function ApiTerminal() {
                 tabIndex={isSelected ? 0 : -1}
                 onClick={() => setActiveTab(tab)}
                 onKeyDown={(e) => handleKeyDownTab(e, tab)}
-                className={`rounded px-3 py-1 font-mono text-xs transition-colors shrink-0 ${
+                className={`rounded px-2.5 sm:px-3 py-1 font-mono text-[11px] sm:text-xs transition-colors shrink-0 ${
                   isSelected
                     ? "bg-accent text-white font-medium shadow-sm"
                     : "text-zinc-400 hover:text-zinc-200 hover:bg-white/5"
@@ -320,16 +320,16 @@ export function ApiTerminal() {
           aria-labelledby={`tab-${activeTab}`}
           aria-label={`API response for ${activeTab}`}
           tabIndex={0}
-          className="p-4 sm:p-5 max-h-[420px] min-h-[340px] overflow-y-auto bg-black/90 focus:outline-none"
+          className="p-3.5 sm:p-5 max-h-[420px] min-h-[280px] sm:min-h-[340px] overflow-y-auto bg-black/90 focus:outline-none touch-scroll"
         >
           {/* Shell Command Prompt Line */}
-          <div className="flex items-center gap-2 text-zinc-300 pb-3 border-b border-white/5">
-            <span className="text-emerald-neon font-bold">$</span>
+          <div className="flex items-start gap-2 text-zinc-300 pb-3 border-b border-white/5 break-all sm:break-normal text-[11px] sm:text-xs">
+            <span className="text-emerald-neon font-bold shrink-0">$</span>
             <span className="text-white select-all">
               {isMounted ? typedCommand : `$ ${currentCommand}`}
             </span>
             {isTyping && (
-              <span className="inline-block w-2 h-4 bg-accent-light animate-pulse align-middle" />
+              <span className="inline-block w-2 h-3.5 sm:h-4 bg-accent-light animate-pulse align-middle shrink-0" />
             )}
           </div>
 

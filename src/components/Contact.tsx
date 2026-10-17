@@ -80,7 +80,7 @@ export function Contact() {
             </p>
 
             {/* Email Address Card with Copy Action */}
-            <div className="rounded-xl border border-base-border bg-base-card p-5 space-y-3">
+            <div className="rounded-xl border border-base-border bg-base-card p-4 sm:p-5 space-y-3">
               <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
                 Direct Email Endpoint
               </span>
@@ -88,7 +88,7 @@ export function Contact() {
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <a
                   href={`mailto:${VERIFIED_LINKS.email}`}
-                  className="font-mono text-base font-semibold text-white hover:text-accent-light transition-colors"
+                  className="font-mono text-sm sm:text-base font-semibold text-white hover:text-accent-light transition-colors break-all sm:break-normal"
                 >
                   {VERIFIED_LINKS.email}
                 </a>
@@ -120,22 +120,22 @@ export function Contact() {
             </div>
 
             {/* Social and Resume Links */}
-            <div className="flex flex-wrap items-center gap-3 pt-1">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-1">
               <a
                 href={VERIFIED_LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-4 py-2.5 font-mono text-xs font-medium text-zinc-200 hover:border-accent hover:text-accent-light transition"
+                className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-3.5 sm:px-4 py-2 sm:py-2.5 font-mono text-xs font-medium text-zinc-200 hover:border-accent hover:text-accent-light transition"
               >
                 <GithubIcon className="h-4 w-4" />
-                <span>GitHub (TanmayKQ)</span>
+                <span>GitHub</span>
               </a>
 
               <a
                 href={VERIFIED_LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-4 py-2.5 font-mono text-xs font-medium text-zinc-200 hover:border-accent hover:text-accent-light transition"
+                className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-3.5 sm:px-4 py-2 sm:py-2.5 font-mono text-xs font-medium text-zinc-200 hover:border-accent hover:text-accent-light transition"
               >
                 <LinkedinIcon className="h-4 w-4" />
                 <span>LinkedIn</span>
@@ -144,7 +144,7 @@ export function Contact() {
               <button
                 onClick={openResumeModal}
                 type="button"
-                className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent-dim px-4 py-2.5 font-mono text-xs font-semibold text-accent-light hover:bg-accent/20 transition"
+                className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent-dim px-3.5 sm:px-4 py-2 sm:py-2.5 font-mono text-xs font-semibold text-accent-light hover:bg-accent/20 transition"
               >
                 <Eye className="h-4 w-4" />
                 <span>Preview Resume</span>
@@ -153,7 +153,7 @@ export function Contact() {
               <a
                 href={VERIFIED_LINKS.resumePdf}
                 download="TanmayKotakResume.pdf"
-                className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-4 py-2.5 font-mono text-xs font-medium text-zinc-300 hover:border-accent hover:text-accent-light transition"
+                className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-3.5 sm:px-4 py-2 sm:py-2.5 font-mono text-xs font-medium text-zinc-300 hover:border-accent hover:text-accent-light transition"
               >
                 <ArrowDownToLine className="h-4 w-4" />
                 <span>Download PDF</span>
@@ -162,7 +162,7 @@ export function Contact() {
           </div>
 
           {/* Mail Client Composer Form (5 cols) */}
-          <div className="rounded-2xl border border-base-border bg-base-card p-6 sm:p-7 lg:col-span-5 font-mono text-xs">
+          <div className="rounded-2xl border border-base-border bg-base-card p-4 sm:p-7 lg:col-span-5 font-mono text-xs">
             <div className="flex items-center justify-between border-b border-base-border pb-3 mb-4">
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-accent-light" />

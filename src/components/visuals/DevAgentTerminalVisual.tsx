@@ -174,7 +174,7 @@ export function DevAgentTerminalVisual() {
             disabled={currentFrameIndex === 0}
             type="button"
             aria-label="Previous step"
-            className="rounded p-1 text-zinc-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition"
+            className="rounded p-1.5 text-zinc-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition"
           >
             <SkipBack className="h-3.5 w-3.5" />
           </button>
@@ -183,7 +183,7 @@ export function DevAgentTerminalVisual() {
             onClick={() => setIsPlaying(!isPlaying)}
             type="button"
             aria-label={isPlaying ? "Pause replay" : "Play replay"}
-            className="rounded p-1 text-zinc-300 hover:text-white transition"
+            className="rounded p-1.5 text-zinc-300 hover:text-white transition"
           >
             {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
           </button>
@@ -193,7 +193,7 @@ export function DevAgentTerminalVisual() {
             disabled={currentFrameIndex === REPLAY_FRAMES.length - 1}
             type="button"
             aria-label="Next step"
-            className="rounded p-1 text-zinc-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition"
+            className="rounded p-1.5 text-zinc-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition"
           >
             <SkipForward className="h-3.5 w-3.5" />
           </button>
@@ -202,25 +202,25 @@ export function DevAgentTerminalVisual() {
             onClick={handleReset}
             type="button"
             aria-label="Reset replay to step 1"
-            className="rounded p-1 text-zinc-400 hover:text-white transition"
+            className="rounded p-1.5 text-zinc-400 hover:text-white transition"
           >
             <RotateCcw className="h-3.5 w-3.5" />
           </button>
         </div>
       </div>
 
-      <div className="grid gap-4 p-4 lg:grid-cols-[1.5fr_1fr] sm:p-5">
+      <div className="grid gap-4 p-3 sm:p-5 lg:grid-cols-[1.5fr_1fr]">
         {/* Terminal Screen Column */}
-        <div className="flex flex-col rounded-lg border border-base-border bg-black/90 p-4 shadow-inner">
+        <div className="flex flex-col rounded-lg border border-base-border bg-black/90 p-3.5 sm:p-4 shadow-inner">
           <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3 text-[10px] text-zinc-400">
             <span className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-emerald-neon" />
-              <span>IPC BUFFER: STDIN / STDOUT (JSONL)</span>
+              <span>IPC BUFFER: STDIN / STDOUT</span>
             </span>
-            <span className="text-accent-light font-medium">{frame.phaseTitle}</span>
+            <span className="text-accent-light font-medium truncate max-w-[150px] sm:max-w-none">{frame.phaseTitle}</span>
           </div>
 
-          <div className="min-h-[160px] space-y-1.5 overflow-x-auto text-[11px] leading-relaxed">
+          <div className="min-h-[140px] sm:min-h-[160px] space-y-1.5 overflow-x-auto touch-scroll text-[11px] leading-relaxed break-words">
             {frame.terminalLines.map((line, idx) => (
               <div
                 key={idx}

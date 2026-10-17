@@ -22,9 +22,9 @@ export function BeautyBangsLighthouseVisual() {
       className="rounded-xl border border-base-border bg-base-card overflow-hidden shadow-sm font-mono text-xs"
     >
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-base-border bg-base-subtle/80 px-4 py-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-base-border bg-base-subtle/80 px-3 sm:px-4 py-2.5">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-emerald-neon" />
+          <Sparkles className="h-4 w-4 text-emerald-neon shrink-0" />
           <span className="font-semibold text-zinc-200">
             lighthouse_audit // PRODUCTION VERIFIED: 100/98/100/100
           </span>
@@ -33,14 +33,14 @@ export function BeautyBangsLighthouseVisual() {
           href={VERIFIED_LINKS.beautyandbangsLive}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1 text-accent-light hover:underline font-semibold"
+          className="flex items-center gap-1 text-accent-light hover:underline font-semibold shrink-0"
         >
           <span>Visit live site</span>
           <ExternalLink className="h-3 w-3" />
         </a>
       </div>
 
-      <div className="grid gap-6 p-4 sm:p-6 lg:grid-cols-[1fr_1.2fr]">
+      <div className="grid gap-6 p-3.5 sm:p-6 lg:grid-cols-[1fr_1.2fr]">
         {/* Left Column: Lighthouse Score Rings & Checklist */}
         <div className="space-y-6">
           <div>
@@ -118,9 +118,9 @@ export function BeautyBangsLighthouseVisual() {
               <span className="h-2 w-2 rounded-full bg-zinc-600 inline-block" />
               <span className="h-2 w-2 rounded-full bg-zinc-600 inline-block" />
             </div>
-            <div className="flex items-center gap-1 truncate rounded bg-black/60 px-2.5 py-0.5 text-zinc-300 max-w-[240px]">
+            <div className="flex items-center gap-1 truncate rounded bg-black/60 px-2.5 py-0.5 text-zinc-300 max-w-[150px] xs:max-w-[200px] sm:max-w-[240px]">
               <span className="text-emerald-neon">https://</span>
-              <span>beautyandbangs.vercel.app</span>
+              <span className="truncate">beautyandbangs.vercel.app</span>
             </div>
             {loadIframe ? (
               <button

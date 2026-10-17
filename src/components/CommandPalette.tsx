@@ -236,7 +236,7 @@ export function CommandPalette({
       role="dialog"
       aria-modal="true"
       aria-label="Command Palette"
-      className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/70 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-20 p-3 sm:p-4 bg-black/70 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
@@ -244,7 +244,7 @@ export function CommandPalette({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center gap-3 border-b border-base-border px-4 py-3 bg-base-subtle/80">
+        <div className="flex items-center gap-3 border-b border-base-border px-3.5 sm:px-4 py-3 bg-base-subtle/80">
           <Search className="h-4 w-4 text-accent-light shrink-0" />
           <input
             ref={inputRef}
@@ -265,7 +265,7 @@ export function CommandPalette({
         </div>
 
         {/* Results List */}
-        <div className="max-h-80 overflow-y-auto p-2">
+        <div className="max-h-[60vh] sm:max-h-80 overflow-y-auto p-2 touch-scroll">
           {filteredItems.length === 0 ? (
             <div className="p-6 text-center text-zinc-500">
               No matching commands or case studies found.
@@ -280,28 +280,28 @@ export function CommandPalette({
                   key={item.id}
                   onClick={() => item.action()}
                   onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`flex w-full items-center justify-between rounded-lg p-2.5 text-left transition ${
+                  className={`flex w-full min-h-[44px] items-center justify-between rounded-lg p-2.5 text-left transition ${
                     isSelected
                       ? "bg-accent-dim text-white border border-accent/40 shadow-sm"
                       : "text-zinc-300 hover:bg-base-subtle border border-transparent"
                   }`}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
                     <div
-                      className={`flex h-7 w-7 items-center justify-center rounded ${
+                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded ${
                         isSelected ? "bg-accent/20 text-accent-light" : "bg-base-subtle text-zinc-400"
                       }`}
                     >
                       <Icon className="h-3.5 w-3.5" />
                     </div>
-                    <div>
-                      <p className="font-semibold">{item.title}</p>
-                      <p className="text-[11px] text-zinc-400 truncate max-w-sm">
+                    <div className="min-w-0">
+                      <p className="font-semibold truncate">{item.title}</p>
+                      <p className="text-[11px] text-zinc-400 truncate max-w-[170px] xs:max-w-xs sm:max-w-sm">
                         {item.subtitle}
                       </p>
                     </div>
                   </div>
-                  <span className="font-mono text-[10px] text-zinc-500 uppercase">
+                  <span className="font-mono text-[10px] text-zinc-500 uppercase shrink-0 pl-2">
                     {item.category}
                   </span>
                 </button>

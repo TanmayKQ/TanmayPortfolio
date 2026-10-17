@@ -26,7 +26,7 @@ export function Experience() {
           {EXPERIENCE.map((item, idx) => (
             <div
               key={idx}
-              className="relative rounded-2xl border border-base-border bg-base-card p-6 sm:p-8 transition-colors hover:border-base-borderLight"
+              className="relative rounded-2xl border border-base-border bg-base-card p-4 sm:p-8 transition-colors hover:border-base-borderLight"
             >
               {/* Role & Header */}
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between border-b border-base-border pb-6">
@@ -40,7 +40,7 @@ export function Experience() {
                   </h3>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-zinc-400">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-xs text-zinc-400">
                   <div className="flex items-center gap-1.5 rounded-md border border-base-border bg-base-subtle px-2.5 py-1">
                     <MapPin className="h-3.5 w-3.5 text-zinc-500" />
                     <span>{item.location}</span>

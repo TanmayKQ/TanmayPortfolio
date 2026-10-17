@@ -33,7 +33,7 @@ export function Hero() {
             </div>
 
             {/* Headline */}
-            <h1 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl text-balance leading-[1.08]">
+            <h1 className="font-display text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl text-balance leading-[1.1]">
               I build backends that hold up, and AI systems that do real work.
             </h1>
 
@@ -43,10 +43,10 @@ export function Hero() {
             </p>
 
             {/* CTAs and Social Handles */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2">
               <Link
                 href="#work"
-                className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 font-mono text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-accent-light"
+                className="inline-flex items-center gap-2 rounded-md bg-accent px-4 sm:px-5 py-3 font-mono text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-accent-light"
               >
                 <span>View work</span>
                 <ArrowDown className="h-4 w-4" />

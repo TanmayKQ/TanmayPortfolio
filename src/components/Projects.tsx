@@ -47,7 +47,7 @@ export function Projects() {
           {PROJECTS.map((project, idx) => (
             <article
               key={project.slug}
-              className="relative rounded-2xl border border-base-border bg-base-card p-6 sm:p-8 lg:p-10 transition-colors hover:border-base-borderLight"
+              className="relative rounded-2xl border border-base-border bg-base-card p-4 sm:p-8 lg:p-10 transition-colors hover:border-base-borderLight"
             >
               <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
                 {/* Information / Narrative Column (5 cols) */}
@@ -90,7 +90,7 @@ export function Projects() {
                   </ul>
 
                   {/* Action CTAs */}
-                  <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-base-border">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-4 border-t border-base-border">
                     <Link
                       href={`/projects/${project.slug}`}
                       className="inline-flex items-center gap-1.5 rounded-md bg-accent-dim border border-accent/40 px-3.5 py-2 font-mono text-xs font-semibold text-accent-light hover:bg-accent/20 hover:border-accent transition"

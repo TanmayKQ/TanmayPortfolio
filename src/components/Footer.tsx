@@ -26,13 +26,13 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-4">
             <a
               href={VERIFIED_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub Profile"
-              className="text-zinc-400 hover:text-accent-light transition"
+              className="flex h-9 w-9 items-center justify-center rounded-md border border-base-border bg-base-subtle/50 text-zinc-400 hover:text-accent-light hover:border-accent transition"
             >
               <GithubIcon className="h-4 w-4" />
             </a>
@@ -41,14 +41,14 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn Profile"
-              className="text-zinc-400 hover:text-accent-light transition"
+              className="flex h-9 w-9 items-center justify-center rounded-md border border-base-border bg-base-subtle/50 text-zinc-400 hover:text-accent-light hover:border-accent transition"
             >
               <LinkedinIcon className="h-4 w-4" />
             </a>
             <a
               href={`mailto:${VERIFIED_LINKS.email}`}
               aria-label="Send direct email"
-              className="text-zinc-400 hover:text-accent-light transition"
+              className="flex h-9 w-9 items-center justify-center rounded-md border border-base-border bg-base-subtle/50 text-zinc-400 hover:text-accent-light hover:border-accent transition"
             >
               <Mail className="h-4 w-4" />
             </a>
@@ -57,10 +57,10 @@ export function Footer() {
               onClick={scrollToTop}
               type="button"
               aria-label="Scroll back to top of page"
-              className="flex items-center gap-1 rounded border border-base-border bg-base-subtle px-2.5 py-1 text-[11px] text-zinc-300 hover:border-accent hover:text-accent-light transition"
+              className="flex h-9 items-center gap-1.5 rounded-md border border-base-border bg-base-subtle px-3 text-xs text-zinc-300 hover:border-accent hover:text-accent-light transition ml-auto sm:ml-0"
             >
               <span>Back to top</span>
-              <ArrowUp className="h-3 w-3" />
+              <ArrowUp className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>

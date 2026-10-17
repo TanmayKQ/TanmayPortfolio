@@ -193,7 +193,7 @@ export function EasterEggTerminal({
       role="dialog"
       aria-modal="true"
       aria-label="Interactive Terminal Console"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/80 backdrop-blur-md"
       onClick={onClose}
     >
       <div
@@ -201,14 +201,14 @@ export function EasterEggTerminal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Terminal Header */}
-        <div className="flex items-center justify-between border-b border-base-border bg-base-card px-4 py-2.5">
+        <div className="flex items-center justify-between border-b border-base-border bg-base-card px-3 sm:px-4 py-2.5">
           <div className="flex items-center gap-2">
-            <TerminalIcon className="h-4 w-4 text-accent-light" />
-            <span className="font-semibold text-zinc-200">
+            <TerminalIcon className="h-4 w-4 text-accent-light shrink-0" />
+            <span className="font-semibold text-zinc-200 truncate">
               tanmay@portfolio:~$ (interactive)
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <span className="text-[10px] text-zinc-500 hidden sm:inline">Press ESC to exit</span>
             <button
               onClick={onClose}
@@ -222,20 +222,24 @@ export function EasterEggTerminal({
         </div>
 
         {/* Console Body */}
-        <div className="p-4 max-h-[380px] min-h-[260px] overflow-y-auto space-y-3">
+        <div className="p-3 sm:p-4 max-h-[55vh] sm:max-h-[380px] min-h-[220px] sm:min-h-[260px] overflow-y-auto space-y-3 touch-scroll">
           {history.map((entry, idx) => (
             <div key={idx} className="space-y-1">
               <div className="flex items-center gap-2 text-accent-light">
-                <span>tanmay@portfolio:~$</span>
-                <span className="text-white">{entry.command}</span>
+                <span className="shrink-0">
+                  <span className="hidden sm:inline">tanmay@portfolio:</span>$
+                </span>
+                <span className="text-white break-words">{entry.command}</span>
               </div>
-              <div className="pl-4">{entry.output}</div>
+              <div className="pl-3 sm:pl-4 break-words">{entry.output}</div>
             </div>
           ))}
 
           {/* Prompt line */}
           <div className="flex items-center gap-2 text-accent-light pt-1">
-            <span>tanmay@portfolio:~$</span>
+            <span className="shrink-0">
+              <span className="hidden sm:inline">tanmay@portfolio:</span>$
+            </span>
             <input
               ref={inputRef}
               type="text"
@@ -243,7 +247,7 @@ export function EasterEggTerminal({
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="flex-1 bg-transparent text-white focus:outline-none"
+              className="flex-1 min-w-0 bg-transparent text-white focus:outline-none"
               autoFocus
             />
           </div>

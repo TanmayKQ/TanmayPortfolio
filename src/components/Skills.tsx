@@ -118,7 +118,7 @@ export function Skills() {
                           onClick={() => setSelectedSkill(skill)}
                           onMouseEnter={() => setSelectedSkill(skill)}
                           type="button"
-                          className={`rounded-md border px-2.5 py-1 font-mono text-xs transition-all text-left ${
+                          className={`rounded-md border px-2.5 py-1.5 font-mono text-xs transition-all text-left ${
                             isSelected
                               ? "border-accent bg-accent-dim text-white ring-1 ring-accent/30 font-semibold"
                               : "border-base-border bg-base-subtle/70 text-zinc-300 hover:border-zinc-500 hover:text-white"

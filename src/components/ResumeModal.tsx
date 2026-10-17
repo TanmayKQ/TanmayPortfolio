@@ -59,52 +59,52 @@ export function ResumeModalProvider({ children }: { children: ReactNode }) {
           onClick={closeResumeModal}
         >
           <div
-            className="flex flex-col w-full max-w-5xl h-[92vh] rounded-2xl border border-base-border bg-base-dark shadow-2xl overflow-hidden font-mono"
+            className="flex flex-col w-full max-w-5xl h-[94dvh] sm:h-[90vh] rounded-2xl border border-base-border bg-base-dark shadow-2xl overflow-hidden font-mono"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header bar */}
-            <div className="flex items-center justify-between border-b border-base-border bg-base-card px-4 py-3 sm:px-6">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-7 w-7 items-center justify-center rounded bg-accent-dim text-accent-light">
+            <div className="flex items-center justify-between border-b border-base-border bg-base-card px-3 py-2.5 sm:px-6 sm:py-3">
+              <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                <div className="flex h-7 w-7 items-center justify-center rounded bg-accent-dim text-accent-light shrink-0">
                   <FileText className="h-4 w-4" />
                 </div>
-                <div>
-                  <h3 className="font-sans text-sm font-semibold text-white leading-tight">
+                <div className="min-w-0">
+                  <h3 className="font-sans text-xs sm:text-sm font-semibold text-white leading-tight truncate">
                     Tanmay Kotak &mdash; Resume
                   </h3>
-                  <p className="text-[11px] text-zinc-400">
+                  <p className="text-[10px] sm:text-[11px] text-zinc-400 truncate">
                     PDF Document Preview
                   </p>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                 <a
                   href={VERIFIED_LINKS.resumePdf}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden sm:inline-flex items-center gap-1.5 rounded-md border border-base-border bg-base-subtle px-3 py-1.5 text-xs text-zinc-300 hover:border-accent hover:text-accent-light transition"
+                  className="inline-flex items-center gap-1.5 rounded-md border border-base-border bg-base-subtle px-2.5 sm:px-3 py-1.5 text-xs text-zinc-300 hover:border-accent hover:text-accent-light transition"
                   title="Open PDF in new tab"
                 >
                   <ExternalLink className="h-3.5 w-3.5" />
-                  <span>Open in Tab</span>
+                  <span className="hidden sm:inline">Open in Tab</span>
                 </a>
 
                 <a
                   href={VERIFIED_LINKS.resumePdf}
                   download="TanmayKotakResume.pdf"
-                  className="inline-flex items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-white hover:bg-accent-light transition"
+                  className="inline-flex items-center gap-1.5 rounded-md bg-accent px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-white hover:bg-accent-light transition"
                 >
                   <ArrowDownToLine className="h-3.5 w-3.5" />
-                  <span className="hidden xs:inline">Download</span>
+                  <span className="hidden sm:inline">Download</span>
                 </a>
 
                 <button
                   onClick={closeResumeModal}
                   type="button"
                   aria-label="Close resume preview"
-                  className="rounded-md p-1.5 text-zinc-400 hover:bg-white/10 hover:text-white transition ml-1"
+                  className="rounded-md p-1.5 text-zinc-400 hover:bg-white/10 hover:text-white transition"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -112,7 +112,7 @@ export function ResumeModalProvider({ children }: { children: ReactNode }) {
             </div>
 
             {/* Embedded PDF Viewer */}
-            <div className="relative flex-1 bg-zinc-950 overflow-hidden">
+            <div className="relative flex-1 bg-zinc-950 overflow-hidden touch-scroll">
               <iframe
                 src={`${VERIFIED_LINKS.resumePdf}#view=FitH`}
                 title="Tanmay Kotak Resume Preview"
@@ -121,9 +121,11 @@ export function ResumeModalProvider({ children }: { children: ReactNode }) {
             </div>
 
             {/* Footer with hint */}
-            <div className="flex items-center justify-between border-t border-base-border bg-base-card/80 px-4 py-2 text-[11px] text-zinc-400">
-              <span>Tanmay Kotak &middot; Computer Engineering &middot; D.Y. Patil CoE Pune</span>
-              <span className="hidden sm:inline">Press ESC to exit preview</span>
+            <div className="flex items-center justify-between border-t border-base-border bg-base-card/80 px-4 py-2 text-[11px] text-zinc-400 gap-2">
+              <span className="truncate">
+                Tanmay Kotak <span className="hidden sm:inline">&middot; Computer Engineering &middot; D.Y. Patil CoE Pune</span>
+              </span>
+              <span className="hidden sm:inline shrink-0">Press ESC to exit preview</span>
             </div>
           </div>
         </div>

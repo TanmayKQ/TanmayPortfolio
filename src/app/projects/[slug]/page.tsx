@@ -97,7 +97,7 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
             <span className="uppercase">{project.shortTitle}</span>
           </div>
 
-          <h1 className="font-display text-3xl font-bold tracking-tight text-white sm:text-5xl leading-tight">
+          <h1 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
             {project.title}
           </h1>
 
@@ -147,7 +147,7 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
 
         {/* Signature Interactive Visual */}
         <div className="my-10">
-          <div className="mb-3 flex items-center justify-between">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
             <span className="font-mono text-xs uppercase tracking-wider text-zinc-400">
               Interactive System Simulator
             </span>
@@ -159,7 +159,7 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
         {/* Optional Screenshot Gallery (renders ONLY when screenshots array has items) */}
         {project.screenshots && project.screenshots.length > 0 && (
           <section className="my-12">
-            <h2 className="font-display text-2xl font-bold text-white mb-6">
+            <h2 className="font-display text-xl sm:text-2xl font-bold text-white mb-6">
               Application Gallery
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -180,12 +180,12 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
         {project.caseStudy && (
           <div className="mt-12 space-y-12">
             {/* Problem Section */}
-            <section className="rounded-xl border border-base-border bg-base-card p-6 sm:p-8">
+            <section className="rounded-xl border border-base-border bg-base-card p-4 sm:p-8">
               <div className="flex items-center gap-2 font-mono text-xs text-rose-400 mb-3">
                 <span className="h-2 w-2 rounded-full bg-rose-500" />
                 <span className="uppercase tracking-widest font-semibold">01 &mdash; The Engineering Problem</span>
               </div>
-              <h2 className="font-display text-2xl font-bold text-white mb-3">
+              <h2 className="font-display text-xl sm:text-2xl font-bold text-white mb-3">
                 What broke or failed with naive implementations?
               </h2>
               <p className="text-zinc-300 leading-relaxed text-sm sm:text-base font-sans">
@@ -194,12 +194,12 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
             </section>
 
             {/* Approach Section */}
-            <section className="rounded-xl border border-base-border bg-base-card p-6 sm:p-8">
+            <section className="rounded-xl border border-base-border bg-base-card p-4 sm:p-8">
               <div className="flex items-center gap-2 font-mono text-xs text-accent-light mb-3">
                 <span className="h-2 w-2 rounded-full bg-accent" />
                 <span className="uppercase tracking-widest font-semibold">02 &mdash; Technical Approach</span>
               </div>
-              <h2 className="font-display text-2xl font-bold text-white mb-3">
+              <h2 className="font-display text-xl sm:text-2xl font-bold text-white mb-3">
                 Architectural strategy & design decisions
               </h2>
               <p className="text-zinc-300 leading-relaxed text-sm sm:text-base font-sans">
@@ -208,33 +208,33 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
             </section>
 
             {/* Architecture Flow Diagram */}
-            <section className="rounded-xl border border-base-border bg-base-subtle/80 p-6 sm:p-8 font-mono">
+            <section className="rounded-xl border border-base-border bg-base-subtle/80 p-4 sm:p-8 font-mono">
               <div className="flex items-center gap-2 text-xs text-emerald-neon mb-3">
                 <Cpu className="h-4 w-4" />
                 <span className="uppercase tracking-widest font-semibold">03 &mdash; System Pipeline Architecture</span>
               </div>
-              <h2 className="font-display text-xl font-bold text-white mb-4">
+              <h2 className="font-display text-lg sm:text-xl font-bold text-white mb-4">
                 Dataflow & Component Interconnect
               </h2>
-              <div className="rounded-lg border border-base-border bg-black/80 p-4 text-xs text-zinc-200 leading-relaxed overflow-x-auto whitespace-pre-wrap">
+              <div className="rounded-lg border border-base-border bg-black/80 p-3.5 sm:p-4 text-xs text-zinc-200 leading-relaxed overflow-x-auto whitespace-pre-wrap break-words touch-scroll">
                 {project.caseStudy.architecture}
               </div>
             </section>
 
             {/* Key Decisions and Trade-offs */}
-            <section className="rounded-xl border border-base-border bg-base-card p-6 sm:p-8">
+            <section className="rounded-xl border border-base-border bg-base-card p-4 sm:p-8">
               <div className="flex items-center gap-2 font-mono text-xs text-amber-neon mb-3">
                 <span className="h-2 w-2 rounded-full bg-amber-500" />
                 <span className="uppercase tracking-widest font-semibold">04 &mdash; Trade-offs & Engineering Decisions</span>
               </div>
-              <h2 className="font-display text-2xl font-bold text-white mb-6">
+              <h2 className="font-display text-xl sm:text-2xl font-bold text-white mb-6">
                 Why this choice over the alternatives?
               </h2>
               <div className="space-y-4 font-sans">
                 {project.caseStudy.keyDecisions.map((decision, dIdx) => (
                   <div
                     key={dIdx}
-                    className="flex items-start gap-3 rounded-lg border border-base-border bg-base-subtle/50 p-4"
+                    className="flex items-start gap-3 rounded-lg border border-base-border bg-base-subtle/50 p-3.5 sm:p-4"
                   >
                     <CheckCircle2 className="h-4 w-4 text-accent-light shrink-0 mt-0.5" />
                     <p className="text-sm text-zinc-300 leading-relaxed">
@@ -246,12 +246,12 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
             </section>
 
             {/* What I'd do next */}
-            <section className="rounded-xl border border-base-border bg-base-card p-6 sm:p-8">
+            <section className="rounded-xl border border-base-border bg-base-card p-4 sm:p-8">
               <div className="flex items-center gap-2 font-mono text-xs text-zinc-400 mb-3">
                 <GitFork className="h-4 w-4 text-accent-light" />
                 <span className="uppercase tracking-widest font-semibold">05 &mdash; Future Roadmap</span>
               </div>
-              <h2 className="font-display text-2xl font-bold text-white mb-4">
+              <h2 className="font-display text-xl sm:text-2xl font-bold text-white mb-4">
                 What I would improve in subsequent iterations
               </h2>
               <ul className="space-y-3 font-sans">
@@ -274,7 +274,7 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
             </span>
             <Link
               href={`/projects/${nextProject.slug}`}
-              className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-accent/40 bg-accent-dim/30 p-5 sm:p-6 transition hover:border-accent hover:bg-accent-dim/50"
+              className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-accent/40 bg-accent-dim/30 p-4 sm:p-6 transition hover:border-accent hover:bg-accent-dim/50"
             >
               <div>
                 <span className="font-mono text-[11px] text-zinc-400 uppercase">
