@@ -10,12 +10,14 @@ import {
   User,
   Mail,
   ArrowDownToLine,
+  Eye,
   Sun,
   Moon,
   ExternalLink,
 } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/SocialIcons";
 import { PROJECTS, VERIFIED_LINKS } from "@/data/projects";
+import { useResumeModal } from "./ResumeModal";
 
 interface CommandItem {
   id: string;
@@ -33,6 +35,7 @@ export function CommandPalette({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  const { openResumeModal } = useResumeModal();
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
@@ -146,6 +149,17 @@ export function CommandPalette({
       category: "Actions",
       icon: Mail,
       action: copyEmail,
+    },
+    {
+      id: "act-preview-resume",
+      title: "Preview Resume",
+      subtitle: "Open interactive in-browser PDF preview without downloading",
+      category: "Actions",
+      icon: Eye,
+      action: () => {
+        onClose();
+        openResumeModal();
+      },
     },
     {
       id: "act-resume",

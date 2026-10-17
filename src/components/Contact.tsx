@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Copy, Check, ArrowDownToLine, ExternalLink, AlertCircle } from "lucide-react";
+import { Mail, Copy, Check, ArrowDownToLine, ExternalLink, AlertCircle, Eye } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/SocialIcons";
 import { VERIFIED_LINKS } from "@/data/projects";
+import { useResumeModal } from "./ResumeModal";
 
 export function Contact() {
+  const { openResumeModal } = useResumeModal();
   const [copied, setCopied] = useState(false);
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
@@ -139,13 +141,22 @@ export function Contact() {
                 <span>LinkedIn</span>
               </a>
 
-              <a
-                href={VERIFIED_LINKS.resumePdf}
-                download
+              <button
+                onClick={openResumeModal}
+                type="button"
                 className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent-dim px-4 py-2.5 font-mono text-xs font-semibold text-accent-light hover:bg-accent/20 transition"
               >
+                <Eye className="h-4 w-4" />
+                <span>Preview Resume</span>
+              </button>
+
+              <a
+                href={VERIFIED_LINKS.resumePdf}
+                download="TanmayKotakResume.pdf"
+                className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-4 py-2.5 font-mono text-xs font-medium text-zinc-300 hover:border-accent hover:text-accent-light transition"
+              >
                 <ArrowDownToLine className="h-4 w-4" />
-                <span>Download Resume (PDF)</span>
+                <span>Download PDF</span>
               </a>
             </div>
           </div>

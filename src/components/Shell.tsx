@@ -6,6 +6,7 @@ import { Footer } from "./Footer";
 import { CommandPalette } from "./CommandPalette";
 import { EasterEggTerminal } from "./EasterEggTerminal";
 import { CustomCursor } from "./CustomCursor";
+import { ResumeModalProvider } from "./ResumeModal";
 
 export function Shell({ children }: { children: React.ReactNode }) {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
@@ -34,7 +35,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <>
+    <ResumeModalProvider>
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
@@ -61,6 +62,6 @@ export function Shell({ children }: { children: React.ReactNode }) {
         isOpen={terminalOpen}
         onClose={() => setTerminalOpen(false)}
       />
-    </>
+    </ResumeModalProvider>
   );
 }

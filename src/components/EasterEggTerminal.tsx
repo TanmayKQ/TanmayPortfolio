@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Terminal as TerminalIcon, X, Maximize2, Minimize2 } from "lucide-react";
 import { PROJECTS, EXPERIENCE, VERIFIED_LINKS } from "@/data/projects";
+import { useResumeModal } from "./ResumeModal";
 
 interface HistoryEntry {
   command: string;
@@ -16,6 +17,7 @@ export function EasterEggTerminal({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  const { openResumeModal } = useResumeModal();
   const [inputVal, setInputVal] = useState("");
   const [history, setHistory] = useState<HistoryEntry[]>([
     {
@@ -63,7 +65,7 @@ export function EasterEggTerminal({
             <p><span className="text-accent-light font-mono w-24 inline-block">projects</span> &mdash; List active engineering projects &amp; stack</p>
             <p><span className="text-accent-light font-mono w-24 inline-block">experience</span> &mdash; View Krios Info Solutions internship summary</p>
             <p><span className="text-accent-light font-mono w-24 inline-block">contact</span> &mdash; Output verified contact endpoints</p>
-            <p><span className="text-accent-light font-mono w-24 inline-block">resume</span> &mdash; Trigger direct download of TanmayKotakResume.pdf</p>
+            <p><span className="text-accent-light font-mono w-24 inline-block">resume</span> &mdash; Open interactive resume preview (or download)</p>
             <p><span className="text-accent-light font-mono w-24 inline-block">clear</span> &mdash; Clear current terminal buffer</p>
             <p><span className="text-accent-light font-mono w-24 inline-block">exit</span> &mdash; Close this terminal window</p>
           </div>
@@ -124,8 +126,16 @@ export function EasterEggTerminal({
         break;
 
       case "resume":
-        window.open(VERIFIED_LINKS.resumePdf, "_blank");
-        output = <p className="text-accent-light">Initiating download of TanmayKotakResume.pdf...</p>;
+        onClose();
+        openResumeModal();
+        output = (
+          <p className="text-accent-light">
+            Opening interactive resume preview... (or download directly:{" "}
+            <a href={VERIFIED_LINKS.resumePdf} download className="underline">
+              TanmayKotakResume.pdf
+            </a>)
+          </p>
+        );
         break;
 
       case "clear":

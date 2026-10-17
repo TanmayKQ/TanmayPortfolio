@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
-import { Terminal, Command, Menu, X, ArrowDownToLine } from "lucide-react";
+import { Terminal, Command, Menu, X, ArrowDownToLine, Eye } from "lucide-react";
 import { VERIFIED_LINKS } from "@/data/projects";
+import { useResumeModal } from "./ResumeModal";
 
 interface NavProps {
   onOpenCommandPalette?: () => void;
@@ -12,6 +13,7 @@ interface NavProps {
 }
 
 export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
+  const { openResumeModal } = useResumeModal();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -126,15 +128,26 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
           {/* Theme Toggle */}
           <ThemeToggle />
 
-          {/* Resume Download CTA */}
-          <a
-            href={VERIFIED_LINKS.resumePdf}
-            download
-            className="hidden sm:inline-flex items-center gap-1.5 rounded-md border border-accent/40 bg-accent-dim px-3 py-1.5 text-xs font-mono font-medium text-accent-light transition hover:border-accent hover:bg-accent/20"
-          >
-            <ArrowDownToLine className="h-3.5 w-3.5" />
-            <span>Resume</span>
-          </a>
+          {/* Resume CTA: Preview & Direct Download */}
+          <div className="hidden sm:inline-flex items-center rounded-md border border-accent/40 bg-accent-dim p-0.5 text-xs font-mono font-medium">
+            <button
+              onClick={openResumeModal}
+              type="button"
+              className="inline-flex items-center gap-1.5 rounded px-2.5 py-1 text-accent-light transition hover:bg-accent/20"
+              title="Preview resume without downloading"
+            >
+              <Eye className="h-3.5 w-3.5" />
+              <span>Resume</span>
+            </button>
+            <a
+              href={VERIFIED_LINKS.resumePdf}
+              download="TanmayKotakResume.pdf"
+              className="inline-flex items-center p-1 text-accent-light/70 hover:text-accent-light hover:bg-accent/20 rounded transition"
+              title="Download TanmayKotakResume.pdf directly"
+            >
+              <ArrowDownToLine className="h-3.5 w-3.5" />
+            </a>
+          </div>
 
           {/* Mobile Hamburger Toggle */}
           <button
@@ -170,10 +183,21 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
             ))}
 
             <div className="pt-2 flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openResumeModal();
+                }}
+                className="flex items-center justify-center gap-2 rounded border border-accent/50 bg-accent-dim py-2 font-mono text-xs text-accent-light font-medium"
+              >
+                <Eye className="h-3.5 w-3.5" />
+                Preview Resume
+              </button>
               <a
                 href={VERIFIED_LINKS.resumePdf}
-                download
-                className="flex items-center justify-center gap-2 rounded border border-accent/50 bg-accent-dim py-2 font-mono text-xs text-accent-light font-medium"
+                download="TanmayKotakResume.pdf"
+                className="flex items-center justify-center gap-2 rounded border border-base-border bg-base-card py-2 font-mono text-xs text-zinc-300 font-medium hover:border-accent hover:text-accent-light"
               >
                 <ArrowDownToLine className="h-3.5 w-3.5" />
                 Download Resume (PDF)
