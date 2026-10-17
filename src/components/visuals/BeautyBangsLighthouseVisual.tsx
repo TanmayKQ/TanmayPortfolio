@@ -1,26 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { ExternalLink, CheckCircle, RefreshCw, Eye, Sparkles } from "lucide-react";
+import { ExternalLink, CheckCircle, Eye, Sparkles, Loader2, Globe, Shield } from "lucide-react";
 import { VERIFIED_LINKS } from "@/data/projects";
 
 const LIGHTHOUSE_METRICS = [
-  { label: "Performance", score: 100, color: "#10b981" },
-  { label: "Accessibility", score: 98, color: "#10b981" },
-  { label: "Best Practices", score: 100, color: "#10b981" },
-  { label: "SEO", score: 100, color: "#10b981" },
+  { label: "Performance", score: 100 },
+  { label: "Accessibility", score: 98 },
+  { label: "Best Practices", score: 100 },
+  { label: "SEO", score: 100 },
 ];
 
 export function BeautyBangsLighthouseVisual() {
   const [loadIframe, setLoadIframe] = useState(false);
+  const [iframeLoading, setIframeLoading] = useState(true);
 
   return (
-    <div className="rounded-xl border border-base-border bg-base-card overflow-hidden shadow-2xl">
-      {/* Visual Header */}
+    <div
+      role="region"
+      aria-label="Beauty & Bangs Performance Audit and Live Preview"
+      className="rounded-xl border border-base-border bg-base-card overflow-hidden shadow-sm font-mono text-xs"
+    >
+      {/* Header */}
       <div className="flex items-center justify-between border-b border-base-border bg-base-subtle/80 px-4 py-2.5">
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-emerald-neon" />
-          <span className="font-mono text-xs font-semibold text-zinc-200">
+          <span className="font-semibold text-zinc-200">
             lighthouse_audit // PRODUCTION VERIFIED: 100/98/100/100
           </span>
         </div>
@@ -28,7 +33,7 @@ export function BeautyBangsLighthouseVisual() {
           href={VERIFIED_LINKS.beautyandbangsLive}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1 font-mono text-xs text-cyan-neon hover:underline"
+          className="flex items-center gap-1 text-accent-light hover:underline font-semibold"
         >
           <span>Visit live site</span>
           <ExternalLink className="h-3 w-3" />
@@ -39,7 +44,7 @@ export function BeautyBangsLighthouseVisual() {
         {/* Left Column: Lighthouse Score Rings & Checklist */}
         <div className="space-y-6">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-400">
               Google Lighthouse Mobile Audit
             </span>
             <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -70,7 +75,7 @@ export function BeautyBangsLighthouseVisual() {
                       {metric.score}
                     </span>
                   </div>
-                  <span className="mt-2 font-mono text-[11px] text-zinc-300">
+                  <span className="mt-2 text-[11px] text-zinc-300">
                     {metric.label}
                   </span>
                 </div>
@@ -81,20 +86,20 @@ export function BeautyBangsLighthouseVisual() {
           {/* Performance Architecture Checklist */}
           <div className="rounded-lg border border-base-border bg-base-subtle/40 p-4 font-mono text-xs">
             <span className="text-[10px] uppercase tracking-wider text-zinc-400">
-              Performance Architecture Checklist
+              Engineering Architecture Checklist
             </span>
             <ul className="mt-3 space-y-2 text-zinc-300 text-[11px]">
               <li className="flex items-center gap-2">
                 <CheckCircle className="h-3.5 w-3.5 text-emerald-neon shrink-0" />
-                <span>Next.js static export (SSG) with zero runtime server latency</span>
+                <span>Next.js static generation (SSG) with zero runtime server latency</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle className="h-3.5 w-3.5 text-emerald-neon shrink-0" />
-                <span>Zero render-blocking scripts; inlined critical utility styling</span>
+                <span>Zero render-blocking scripts; inlined critical styling</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle className="h-3.5 w-3.5 text-emerald-neon shrink-0" />
-                <span>Modern WebP image asset compression with static aspect ratios</span>
+                <span>Modern WebP image assets with explicit dimensions</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle className="h-3.5 w-3.5 text-emerald-neon shrink-0" />
@@ -104,68 +109,87 @@ export function BeautyBangsLighthouseVisual() {
           </div>
         </div>
 
-        {/* Right Column: Stylized Browser Frame with Lazy-loaded Iframe */}
+        {/* Right Column: Stylized Browser Frame */}
         <div className="flex flex-col rounded-lg border border-base-border bg-black/90 overflow-hidden shadow-inner min-h-[300px]">
           {/* Browser Address Bar */}
-          <div className="flex items-center justify-between border-b border-base-border bg-base-subtle px-3 py-2 text-[11px] font-mono text-zinc-400">
+          <div className="flex items-center justify-between border-b border-base-border bg-base-subtle px-3 py-2 text-[11px] text-zinc-400">
             <div className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-zinc-600 inline-block" />
               <span className="h-2 w-2 rounded-full bg-zinc-600 inline-block" />
               <span className="h-2 w-2 rounded-full bg-zinc-600 inline-block" />
             </div>
-            <div className="flex items-center gap-1 truncate rounded bg-black/60 px-2 py-0.5 text-zinc-300 max-w-[220px]">
+            <div className="flex items-center gap-1 truncate rounded bg-black/60 px-2.5 py-0.5 text-zinc-300 max-w-[240px]">
               <span className="text-emerald-neon">https://</span>
               <span>beautyandbangs.vercel.app</span>
             </div>
-            {loadIframe && (
+            {loadIframe ? (
               <button
-                onClick={() => setLoadIframe(false)}
-                className="text-[10px] text-zinc-500 hover:text-white"
+                onClick={() => {
+                  setLoadIframe(false);
+                  setIframeLoading(true);
+                }}
+                className="text-[10px] text-zinc-400 hover:text-white"
               >
-                Close Preview
+                Close Embed
               </button>
+            ) : (
+              <span className="text-[10px] text-zinc-500">Static Preview</span>
             )}
           </div>
 
-          {/* Browser Window Body */}
+          {/* Browser Body */}
           <div className="relative flex-1 flex items-center justify-center p-4">
             {loadIframe ? (
-              <iframe
-                src={VERIFIED_LINKS.beautyandbangsLive}
-                title="Beauty & Bangs Live Client Preview"
-                className="h-full w-full min-h-[280px] rounded border-0"
-                loading="lazy"
-              />
+              <div className="relative w-full h-full min-h-[280px]">
+                {iframeLoading && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/90 z-10">
+                    <Loader2 className="h-6 w-6 animate-spin text-accent-light" />
+                    <span className="text-xs text-zinc-400">Loading live site from edge CDN...</span>
+                  </div>
+                )}
+                <iframe
+                  src={VERIFIED_LINKS.beautyandbangsLive}
+                  title="Beauty & Bangs Live Client Preview"
+                  onLoad={() => setIframeLoading(false)}
+                  className="h-full w-full min-h-[280px] rounded border-0"
+                  loading="lazy"
+                />
+              </div>
             ) : (
               <div className="flex flex-col items-center justify-center text-center p-6 space-y-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-dim border border-cyan-neon/30 text-cyan-neon">
-                  <Eye className="h-6 w-6" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent-dim border border-accent/30 text-accent-light">
+                  <Globe className="h-6 w-6" />
                 </div>
                 <div>
                   <p className="font-display font-semibold text-white text-base">
-                    Live Client Preview Available
+                    Beauty &amp; Bangs Salon Website
                   </p>
-                  <p className="mt-1 font-mono text-xs text-zinc-400 max-w-xs">
-                    Lazy-loaded directly on click to preserve 0KB initial payload overhead.
+                  <p className="mt-1 text-xs text-zinc-400 max-w-xs font-sans">
+                    Production client site built for high-conversion local discovery and sub-second mobile page loads.
                   </p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => setLoadIframe(true)}
-                    type="button"
-                    className="inline-flex items-center gap-2 rounded-md bg-cyan-neon px-4 py-2 font-mono text-xs font-bold uppercase text-black hover:bg-cyan-300 transition"
-                  >
-                    <span>Load live preview</span>
-                  </button>
+                <div className="flex flex-wrap items-center justify-center gap-3">
                   <a
                     href={VERIFIED_LINKS.beautyandbangsLive}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-md border border-base-border bg-base-card px-3 py-2 font-mono text-xs text-zinc-300 hover:border-cyan-neon hover:text-cyan-neon transition"
+                    className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-xs font-semibold uppercase text-white hover:bg-accent-light transition"
                   >
-                    <span>Open in new tab</span>
-                    <ExternalLink className="h-3 w-3" />
+                    <span>Open live site</span>
+                    <ExternalLink className="h-3.5 w-3.5" />
                   </a>
+
+                  <button
+                    onClick={() => {
+                      setLoadIframe(true);
+                      setIframeLoading(true);
+                    }}
+                    type="button"
+                    className="inline-flex items-center gap-1.5 rounded-md border border-base-border bg-base-card px-3.5 py-2 text-xs text-zinc-300 hover:border-accent hover:text-accent-light transition"
+                  >
+                    <Eye className="h-3.5 w-3.5" />
+                    <span>Load embed preview</span>
+                  </button>
                 </div>
               </div>
             )}

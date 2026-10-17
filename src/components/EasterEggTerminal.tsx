@@ -173,13 +173,13 @@ export function EasterEggTerminal({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-2xl rounded-xl border border-cyan-neon/40 bg-black/95 shadow-[0_0_40px_rgba(0,240,255,0.15)] overflow-hidden font-mono text-xs"
+        className="w-full max-w-2xl rounded-xl border border-accent/40 bg-black/95 shadow-2xl overflow-hidden font-mono text-xs"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Terminal Header */}
         <div className="flex items-center justify-between border-b border-base-border bg-base-card px-4 py-2.5">
           <div className="flex items-center gap-2">
-            <TerminalIcon className="h-4 w-4 text-cyan-neon" />
+            <TerminalIcon className="h-4 w-4 text-accent-light" />
             <span className="font-semibold text-zinc-200">
               tanmay@systems-node:~ (bash)
             </span>
@@ -201,7 +201,7 @@ export function EasterEggTerminal({
         <div className="p-4 max-h-[380px] min-h-[260px] overflow-y-auto space-y-3">
           {history.map((entry, idx) => (
             <div key={idx} className="space-y-1">
-              <div className="flex items-center gap-2 text-cyan-neon">
+              <div className="flex items-center gap-2 text-accent-light">
                 <span>tanmay@systems-node:~$</span>
                 <span className="text-white">{entry.command}</span>
               </div>
@@ -210,7 +210,7 @@ export function EasterEggTerminal({
           ))}
 
           {/* Prompt line */}
-          <div className="flex items-center gap-2 text-cyan-neon pt-1">
+          <div className="flex items-center gap-2 text-accent-light pt-1">
             <span>tanmay@systems-node:~$</span>
             <input
               ref={inputRef}

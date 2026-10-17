@@ -12,17 +12,21 @@ const config: Config = {
     extend: {
       colors: {
         base: {
-          dark: "#08090d",
-          card: "#0f1118",
-          subtle: "#141722",
-          border: "#1b2030",
-          borderLight: "#262c42",
+          dark: "#090a0f",
+          card: "#11141e",
+          subtle: "#161a27",
+          border: "#1e2436",
+          borderLight: "#2b334c",
         },
-        cyan: {
-          neon: "#00f0ff",
-          dim: "rgba(0, 240, 255, 0.12)",
-          glow: "rgba(0, 240, 255, 0.35)",
+        // Restrained, engineering-focused violet/blue primary accent
+        accent: {
+          DEFAULT: "#6366f1",
+          light: "#818cf8",
+          dim: "rgba(99, 102, 241, 0.12)",
+          glow: "rgba(99, 102, 241, 0.25)",
+          border: "rgba(99, 102, 241, 0.35)",
         },
+        // Semantic statuses strictly reserved for state feedback
         emerald: {
           neon: "#10b981",
           dim: "rgba(16, 185, 129, 0.12)",
@@ -30,6 +34,16 @@ const config: Config = {
         amber: {
           neon: "#f59e0b",
           dim: "rgba(245, 158, 11, 0.12)",
+        },
+        rose: {
+          neon: "#f43f5e",
+          dim: "rgba(244, 63, 94, 0.12)",
+        },
+        // Compatibility alias mapping cyan to our refined accent tokens
+        cyan: {
+          neon: "#818cf8",
+          dim: "rgba(99, 102, 241, 0.12)",
+          glow: "rgba(99, 102, 241, 0.25)",
         },
       },
       fontFamily: {
@@ -39,13 +53,6 @@ const config: Config = {
       },
       animation: {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "scanline": "scanline 8s linear infinite",
-      },
-      keyframes: {
-        scanline: {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(1000%)" },
-        },
       },
     },
   },

@@ -16,7 +16,7 @@ export function About() {
         {/* Section Header */}
         <div className="mb-12 space-y-2">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400">
-            <span className="text-cyan-neon font-semibold">// 04</span>
+            <span className="text-accent-light font-semibold">// 04</span>
             <span className="uppercase tracking-[0.2em]">Background &amp; Principles</span>
           </div>
           <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
@@ -29,7 +29,7 @@ export function About() {
           <div className="space-y-6 lg:col-span-7">
             <div className="rounded-2xl border border-base-border bg-base-card p-6 sm:p-8 space-y-5">
               <div className="flex items-center gap-2 font-mono text-xs text-zinc-400 pb-2 border-b border-base-border">
-                <Terminal className="h-3.5 w-3.5 text-cyan-neon" />
+                <Terminal className="h-3.5 w-3.5 text-accent-light" />
                 <span>ENGINEERING PHILOSOPHY</span>
               </div>
 
@@ -37,7 +37,7 @@ export function About() {
                 &ldquo;I&apos;m a fourth-year Computer Engineering student in Pune who likes the parts of software people don&apos;t see: state machines, queues, schemas, retries. This year I built an enterprise supply-chain backend with SAP integrations at Krios, and on my own I build RAG platforms and agentic coding tools. I care about systems that fail safely and can be explained clearly.&rdquo;
               </blockquote>
 
-              <div className="pt-2 text-sm text-zinc-400 leading-relaxed space-y-3">
+              <div className="pt-2 text-sm text-zinc-300 leading-relaxed space-y-3 font-sans">
                 <p>
                   Most distributed bugs occur at boundaries: between synchronous clients and long-running workers, between LLM completions and execution environments, or during ERP inventory updates.
                 </p>
@@ -65,7 +65,7 @@ export function About() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3 font-mono text-[11px] text-zinc-300 flex justify-between items-center">
                   <span className="font-semibold text-white">Tanmay Kotak</span>
-                  <span className="text-cyan-neon">D.Y. Patil CoE, Pune</span>
+                  <span className="text-accent-light">D.Y. Patil CoE, Pune</span>
                 </div>
               </div>
             </div>
@@ -85,7 +85,7 @@ export function About() {
                       className="flex items-start justify-between gap-4 border-b border-base-border/40 pb-2.5 last:border-b-0 last:pb-0"
                     >
                       <span className="flex items-center gap-1.5 text-zinc-400">
-                        <Icon className="h-3.5 w-3.5 text-cyan-neon" />
+                        <Icon className="h-3.5 w-3.5 text-accent-light" />
                         <span>{item.label}:</span>
                       </span>
                       <span className="font-semibold text-right text-zinc-200">

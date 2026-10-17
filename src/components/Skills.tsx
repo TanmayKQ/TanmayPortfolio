@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { SKILL_GROUPS, SKILL_PROJECT_MAP } from "@/data/projects";
-import { Code2, Server, Brain, Database, Layout, Cloud, GitMerge, Info } from "lucide-react";
+import { Code2, Server, Brain, Database, Layout, Cloud, GitMerge, CheckCircle2 } from "lucide-react";
 
 export function Skills() {
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [selectedSkill, setSelectedSkill] = useState<string>("pgvector");
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -28,40 +28,69 @@ export function Skills() {
     }
   };
 
+  const activeProject = SKILL_PROJECT_MAP[selectedSkill];
+
   return (
-    <section id="skills" aria-label="Technical Skills and Architecture" className="py-16 md:py-24 border-t border-base-border">
+    <section
+      id="skills"
+      aria-label="Technical Skills and Architecture"
+      className="py-16 md:py-24 border-t border-base-border"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-12 space-y-2">
+        <div className="mb-10 space-y-2">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400">
-            <span className="text-cyan-neon font-semibold">// 03</span>
-            <span className="uppercase tracking-[0.2em]">Verified Technical Proficiencies</span>
+            <span className="text-accent-light font-semibold">// 03</span>
+            <span className="uppercase tracking-[0.2em]">Verified Technical Stack</span>
           </div>
           <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Engineering stack & system patterns.
           </h2>
           <p className="max-w-2xl text-sm text-zinc-400 sm:text-base">
-            Hover over skills to inspect active implementations across production codebases and architectures.
+            Select or hover any skill below to inspect its verified implementation across production codebases.
           </p>
         </div>
 
-        {/* Bento Grid */}
+        {/* Global Context Inspector Strip */}
+        <div className="mb-8 rounded-xl border border-base-border bg-base-card p-4 font-mono text-xs">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-accent-light" />
+              <span className="text-zinc-400">Selected Technology:</span>
+              <span className="font-bold text-white text-sm bg-base-subtle px-2 py-0.5 rounded border border-base-border">
+                {selectedSkill}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2 text-zinc-300">
+              <CheckCircle2 className="h-4 w-4 text-emerald-neon shrink-0" />
+              <span>
+                {activeProject ? (
+                  <>
+                    Shipped in: <strong className="text-white font-semibold">{activeProject}</strong>
+                  </>
+                ) : (
+                  <span className="text-zinc-400">Core engineering skill used across multiple projects</span>
+                )}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bento Grid of Grouped Categories */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SKILL_GROUPS.map((group, idx) => {
             const Icon = getCategoryIcon(group.category);
-            const isFeatured = group.category === "Backend" || group.category === "AI / LLM";
 
             return (
               <div
                 key={group.category}
-                className={`relative flex flex-col justify-between rounded-xl border border-base-border bg-base-card p-6 transition-all hover:border-base-borderLight ${
-                  isFeatured ? "lg:col-span-1 border-cyan-neon/30 bg-base-card/90" : ""
-                }`}
+                className="flex flex-col justify-between rounded-xl border border-base-border bg-base-card p-5 transition-colors hover:border-base-borderLight"
               >
                 <div>
-                  <div className="flex items-center justify-between border-b border-base-border pb-3 mb-4">
-                    <div className="flex items-center gap-2">
-                      <div className="flex h-7 w-7 items-center justify-center rounded bg-cyan-dim text-cyan-neon">
+                  <div className="flex items-center justify-between border-b border-base-border pb-3 mb-3.5">
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex h-7 w-7 items-center justify-center rounded bg-accent-dim text-accent-light">
                         <Icon className="h-4 w-4" />
                       </div>
                       <h3 className="font-display text-base font-bold text-white">
@@ -73,45 +102,41 @@ export function Skills() {
                     </span>
                   </div>
 
-                  <p className="text-xs text-zinc-300 leading-relaxed mb-4">
+                  <p className="text-xs text-zinc-300 leading-relaxed mb-4 font-sans">
                     {group.description}
                   </p>
 
-                  {/* Skills Chip List */}
+                  {/* Skills Chip List - Accessible Buttons */}
                   <div className="flex flex-wrap gap-2">
                     {group.skills.map((skill) => {
-                      const associatedProject = SKILL_PROJECT_MAP[skill];
-                      const isHovered = hoveredSkill === skill;
+                      const isSelected = selectedSkill === skill;
+                      const hasProject = Boolean(SKILL_PROJECT_MAP[skill]);
 
                       return (
-                        <div
+                        <button
                           key={skill}
-                          onMouseEnter={() => setHoveredSkill(skill)}
-                          onMouseLeave={() => setHoveredSkill(null)}
-                          className={`relative cursor-default rounded-md border px-3 py-1.5 font-mono text-xs transition-all ${
-                            isHovered
-                              ? "border-cyan-neon bg-cyan-dim text-white shadow-[0_0_12px_rgba(0,240,255,0.25)]"
-                              : "border-base-border bg-base-subtle/70 text-zinc-200 hover:border-zinc-500"
+                          onClick={() => setSelectedSkill(skill)}
+                          onMouseEnter={() => setSelectedSkill(skill)}
+                          type="button"
+                          className={`rounded-md border px-2.5 py-1 font-mono text-xs transition-all text-left ${
+                            isSelected
+                              ? "border-accent bg-accent-dim text-white ring-1 ring-accent/30 font-semibold"
+                              : "border-base-border bg-base-subtle/70 text-zinc-300 hover:border-zinc-500 hover:text-white"
                           }`}
                         >
                           <span>{skill}</span>
-
-                          {/* Hover Tooltip / Hint */}
-                          {isHovered && associatedProject && (
-                            <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 whitespace-nowrap rounded border border-cyan-neon/60 bg-black/95 px-2.5 py-1 text-[10px] font-mono text-cyan-neon shadow-xl backdrop-blur-md">
-                              <span className="text-zinc-400">Shipped in: </span>
-                              <span className="font-semibold">{associatedProject}</span>
-                            </div>
+                          {hasProject && (
+                            <span className="ml-1.5 inline-block h-1.5 w-1.5 rounded-full bg-accent-light/70" />
                           )}
-                        </div>
+                        </button>
                       );
                     })}
                   </div>
                 </div>
 
-                <div className="mt-6 pt-3 border-t border-base-border/50 flex items-center justify-between text-[10px] font-mono text-zinc-400">
+                <div className="mt-5 pt-3 border-t border-base-border/50 flex items-center justify-between text-[10px] font-mono text-zinc-400">
                   <span>{group.skills.length} verified technologies</span>
-                  <span className="text-cyan-neon font-mono">Defensible</span>
+                  <span className="text-accent-light font-medium">Defensible</span>
                 </div>
               </div>
             );

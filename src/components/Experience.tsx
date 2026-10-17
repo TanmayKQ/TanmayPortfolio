@@ -14,13 +14,13 @@ export function Experience() {
         {/* Section Header */}
         <div className="mb-12 space-y-2">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400">
-            <span className="text-cyan-neon font-semibold">// 01</span>
+            <span className="text-accent-light font-semibold">// 01</span>
             <span className="uppercase tracking-[0.2em]">Engineering Experience</span>
           </div>
           <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Where I have shipped systems.
           </h2>
-          <p className="max-w-2xl text-sm text-zinc-400 sm:text-base">
+          <p className="max-w-2xl text-sm text-zinc-400 sm:text-base font-sans">
             Enterprise backend architecture, ERP integrations, and resilient client engineering.
           </p>
         </div>
@@ -35,7 +35,7 @@ export function Experience() {
               {/* Role & Header */}
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between border-b border-base-border pb-6">
                 <div>
-                  <div className="inline-flex items-center gap-2 rounded bg-cyan-dim px-2.5 py-1 font-mono text-xs text-cyan-neon">
+                  <div className="inline-flex items-center gap-2 rounded bg-accent-dim px-2.5 py-1 font-mono text-xs text-accent-light font-medium">
                     <Briefcase className="h-3.5 w-3.5" />
                     <span>{item.role}</span>
                   </div>
@@ -50,7 +50,7 @@ export function Experience() {
                     <span>{item.location}</span>
                   </div>
                   <div className="flex items-center gap-1.5 rounded-md border border-base-border bg-base-subtle px-2.5 py-1 text-zinc-300">
-                    <Calendar className="h-3.5 w-3.5 text-cyan-neon" />
+                    <Calendar className="h-3.5 w-3.5 text-accent-light" />
                     <span>{item.period}</span>
                   </div>
                 </div>
@@ -58,10 +58,10 @@ export function Experience() {
 
               {/* Technical Accomplishments */}
               <div className="mt-6 space-y-4">
-                <ul className="space-y-3">
+                <ul className="space-y-3 font-sans">
                   {item.bullets.map((bullet, bulletIdx) => (
                     <li key={bulletIdx} className="flex items-start gap-3 text-sm text-zinc-300 leading-relaxed">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-neon shrink-0" />
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent-light shrink-0" />
                       <div className="flex-1">
                         <span>{bullet}</span>
 
@@ -71,7 +71,7 @@ export function Experience() {
                             <button
                               onClick={() => setShowStateMachine(!showStateMachine)}
                               type="button"
-                              className="inline-flex items-center gap-2 rounded-md border border-cyan-neon/40 bg-cyan-dim px-3 py-1.5 font-mono text-xs font-medium text-cyan-neon hover:bg-cyan-neon/20 transition"
+                              className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent-dim px-3 py-1.5 font-mono text-xs font-medium text-accent-light hover:bg-accent/20 transition"
                             >
                               <Network className="h-3.5 w-3.5" />
                               <span>{showStateMachine ? "Collapse ASN state machine" : "Inspect ASN state machine & rollback guard"}</span>

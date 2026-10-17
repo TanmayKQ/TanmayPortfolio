@@ -229,7 +229,7 @@ export function CommandPalette({
       >
         {/* Search Input Bar */}
         <div className="flex items-center gap-3 border-b border-base-border px-4 py-3 bg-base-subtle/80">
-          <Search className="h-4 w-4 text-cyan-neon shrink-0" />
+          <Search className="h-4 w-4 text-accent-light shrink-0" />
           <input
             ref={inputRef}
             type="text"
@@ -266,14 +266,14 @@ export function CommandPalette({
                   onMouseEnter={() => setSelectedIndex(idx)}
                   className={`flex w-full items-center justify-between rounded-lg p-2.5 text-left transition ${
                     isSelected
-                      ? "bg-cyan-dim text-white border border-cyan-neon/40 shadow-sm"
+                      ? "bg-accent-dim text-white border border-accent/40 shadow-sm"
                       : "text-zinc-300 hover:bg-base-subtle border border-transparent"
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <div
                       className={`flex h-7 w-7 items-center justify-center rounded ${
-                        isSelected ? "bg-cyan-neon/20 text-cyan-neon" : "bg-base-subtle text-zinc-400"
+                        isSelected ? "bg-accent/20 text-accent-light" : "bg-base-subtle text-zinc-400"
                       }`}
                     >
                       <Icon className="h-3.5 w-3.5" />
@@ -301,7 +301,7 @@ export function CommandPalette({
             <span>&crarr; Select</span>
             <span>ESC Close</span>
           </div>
-          <span className="text-cyan-neon">Tanmay Kotak CLI</span>
+          <span className="text-accent-light">Tanmay Kotak CLI</span>
         </div>
       </div>
     </div>

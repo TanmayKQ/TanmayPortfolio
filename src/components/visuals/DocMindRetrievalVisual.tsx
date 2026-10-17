@@ -1,155 +1,230 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Database, Search, Cpu, Terminal, Play, Pause, RefreshCw, Zap, Layers } from "lucide-react";
+import { useState } from "react";
+import { Database, Search, Cpu, Terminal, Play, RotateCcw, CheckCircle2, Layers } from "lucide-react";
 
-const RETRIEVAL_STEPS = [
-  { id: "query", title: "User Query", detail: "Query: 'What is the indemnification clause limit under Section 8?'", icon: Search },
-  { id: "embed", title: "Dense Embedder", detail: "text-embedding-004 · 768-dim vector generated in 18ms", icon: Cpu },
-  { id: "branch", title: "Dual Branch Execution", detail: "pgvector Cosine (Dense 70%) || tsvector BM25 (Sparse 30%)", icon: Layers },
-  { id: "cte", title: "PostgreSQL CTE Merge", detail: "Fused reciprocal rank in single SQL query: score = (0.7*cos) + (0.3*lex)", icon: Database },
-  { id: "stream", title: "Gemini 2.5 Flash SSE", detail: "Streaming 428 tokens over Server-Sent Events async generator", icon: Zap },
+interface PipelineStep {
+  id: string;
+  number: string;
+  title: string;
+  sub: string;
+  details: string;
+  codeOrData: string;
+}
+
+const RETRIEVAL_STAGES: PipelineStep[] = [
+  {
+    id: "query",
+    number: "01",
+    title: "Inbound Query",
+    sub: "Text Normalization",
+    details: "Incoming question is sanitized and evaluated against tenant authorization scopes.",
+    codeOrData: "Q: 'What is the indemnification clause liability limit under Section 8.2?'",
+  },
+  {
+    id: "embed",
+    number: "02",
+    title: "Dense Vectorization",
+    sub: "768-dim Embeddings",
+    details: "Generates normalized dense embedding vector for semantic cosine similarity comparison.",
+    codeOrData: "vector_embedding: [0.0418, -0.0921, 0.1284, ... 768 dimensions]",
+  },
+  {
+    id: "cte",
+    number: "03",
+    title: "Fused SQL CTE",
+    sub: "70/30 Hybrid Ranking",
+    details:
+      "Executes single PostgreSQL CTE combining pgvector cosine distance (70%) with tsvector BM25 match (30%).",
+    codeOrData:
+      "WITH ranked_docs AS (\n  SELECT id, content,\n    (0.70 * (1 - (embedding <=> $1))) +\n    (0.30 * ts_rank(textsearch, plainto_tsquery($2))) AS fused_score\n  FROM document_chunks WHERE tenant_id = $3\n  ORDER BY fused_score DESC LIMIT 8\n)",
+  },
+  {
+    id: "context",
+    number: "04",
+    title: "Context Window",
+    sub: "Top-8 Deduplication",
+    details: "Top-ranked chunks injected into system prompt template with strict boundary guards.",
+    codeOrData: "Top match: Section 8.2 MSA Contract (Score: 0.884, Source: chunk_9182)",
+  },
+  {
+    id: "stream",
+    number: "05",
+    title: "Token Stream",
+    sub: "Deterministic SSE",
+    details: "Gemini 2.5 Flash yields tokens through an asynchronous generator to the client.",
+    codeOrData:
+      "\"According to Section 8.2 of the Master Services Agreement, indemnification liability is strictly capped at twelve (12) months of aggregate service fees paid preceding the incident.\"",
+  },
 ];
 
-const STREAMING_SNIPPET = [
-  "According to Section 8.2 of the Master Services Agreement,",
-  " the indemnification liability for either party is strictly capped",
-  " at twelve (12) months of aggregate service fees paid preceding the incident.",
-  " Specific carve-outs apply solely to gross negligence and willful misconduct.",
-];
+export function DocMindRetrievalVisual({ variant = "compact" }: { variant?: "compact" | "full" }) {
+  const [activeStep, setActiveStep] = useState<number>(2); // Default to Fused SQL CTE
+  const [isSimulating, setIsSimulating] = useState<boolean>(false);
+  const [streamProgress, setStreamProgress] = useState<number>(100);
 
-export function DocMindRetrievalVisual() {
-  const [activeStep, setActiveStep] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [streamedText, setStreamedText] = useState("");
-  const [tokenCount, setTokenCount] = useState(0);
+  const handleRunSimulation = () => {
+    setIsSimulating(true);
+    setActiveStep(0);
+    setStreamProgress(0);
 
-  useEffect(() => {
-    if (!isPlaying) return;
+    let current = 0;
     const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % RETRIEVAL_STEPS.length);
-    }, 2200);
-    return () => clearInterval(interval);
-  }, [isPlaying]);
-
-  useEffect(() => {
-    if (activeStep === 4) {
-      setStreamedText("");
-      setTokenCount(0);
-      let chunkIdx = 0;
-      const streamTimer = setInterval(() => {
-        if (chunkIdx < STREAMING_SNIPPET.length) {
-          setStreamedText((prev) => prev + STREAMING_SNIPPET[chunkIdx]);
-          setTokenCount((prev) => prev + 18);
-          chunkIdx++;
-        } else {
-          clearInterval(streamTimer);
+      current++;
+      if (current < RETRIEVAL_STAGES.length) {
+        setActiveStep(current);
+        if (current === 4) {
+          setStreamProgress(100);
+          clearInterval(interval);
+          setIsSimulating(false);
         }
-      }, 260);
-      return () => clearInterval(streamTimer);
-    }
-  }, [activeStep]);
+      } else {
+        clearInterval(interval);
+        setIsSimulating(false);
+      }
+    }, 800);
+  };
+
+  const handleReset = () => {
+    setActiveStep(2);
+    setStreamProgress(100);
+    setIsSimulating(false);
+  };
+
+  const currentStage = RETRIEVAL_STAGES[activeStep];
 
   return (
-    <div className="rounded-xl border border-base-border bg-base-card overflow-hidden shadow-xl">
+    <div
+      role="region"
+      aria-label="DocMind Hybrid Retrieval Pipeline Simulator"
+      className="rounded-xl border border-base-border bg-base-card overflow-hidden shadow-sm"
+    >
       {/* Visual Header */}
       <div className="flex items-center justify-between border-b border-base-border bg-base-subtle/80 px-4 py-2.5">
         <div className="flex items-center gap-2">
-          <Database className="h-4 w-4 text-cyan-neon" />
+          <Database className="h-4 w-4 text-accent-light" />
           <span className="font-mono text-xs font-semibold text-zinc-200">
-            docmind_hybrid_engine // 70-30 CTE RETRIEVAL
+            docmind_hybrid_retrieval.sql // 70/30 FUSED CTE
           </span>
         </div>
-        <div className="flex items-center gap-1.5">
+
+        <div className="flex items-center gap-2 font-mono text-[10px]">
+          <span className="text-zinc-400 hidden sm:inline">
+            Deterministic Simulation
+          </span>
           <button
-            onClick={() => setIsPlaying(!isPlaying)}
+            onClick={handleRunSimulation}
+            disabled={isSimulating}
             type="button"
-            aria-label={isPlaying ? "Pause visual" : "Play visual"}
-            className="rounded p-1 text-zinc-400 hover:bg-white/5 hover:text-cyan-neon transition"
+            className={`flex items-center gap-1 rounded px-2 py-1 transition ${
+              isSimulating
+                ? "bg-zinc-800 text-zinc-500 cursor-not-allowed"
+                : "border border-accent/60 bg-accent text-white hover:bg-accent-light"
+            }`}
           >
-            {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
+            <Play className="h-3 w-3" />
+            <span>{isSimulating ? "Running..." : "Run Pipeline"}</span>
           </button>
           <button
-            onClick={() => {
-              setActiveStep(0);
-              setStreamedText("");
-            }}
+            onClick={handleReset}
             type="button"
-            aria-label="Restart flow"
-            className="rounded p-1 text-zinc-400 hover:bg-white/5 hover:text-cyan-neon transition"
+            aria-label="Reset retrieval pipeline"
+            className="flex items-center gap-1 rounded border border-base-border bg-base-card px-2 py-1 text-zinc-400 hover:text-zinc-200 transition"
           >
-            <RefreshCw className="h-3.5 w-3.5" />
+            <RotateCcw className="h-3 w-3" />
           </button>
         </div>
       </div>
 
-      <div className="p-4 sm:p-5 space-y-4">
-        {/* Step Progression Badges */}
+      <div className="p-4 sm:p-5 space-y-4 font-mono text-xs">
+        {/* Step Progression Selector */}
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
-          {RETRIEVAL_STEPS.map((step, idx) => {
-            const isCurrent = idx === activeStep;
-            const isCompleted = idx < activeStep;
+          {RETRIEVAL_STAGES.map((stage, idx) => {
+            const isSelected = idx === activeStep;
+            const isPast = idx < activeStep;
 
             return (
               <button
-                key={step.id}
+                key={stage.id}
                 onClick={() => setActiveStep(idx)}
                 type="button"
                 className={`flex flex-col text-left p-2.5 rounded-lg border transition-all ${
-                  isCurrent
-                    ? "border-cyan-neon bg-cyan-dim/40 shadow-[0_0_15px_rgba(0,240,255,0.18)]"
-                    : isCompleted
+                  isSelected
+                    ? "border-accent bg-accent-dim text-white ring-1 ring-accent/30"
+                    : isPast
                     ? "border-base-border bg-base-subtle/60 text-zinc-300"
-                    : "border-base-border/50 bg-black/20 text-zinc-500 opacity-60"
+                    : "border-base-border/50 bg-black/20 text-zinc-500"
                 }`}
               >
-                <div className="flex items-center justify-between text-[10px] font-mono">
-                  <span className="text-zinc-400">0{idx + 1}</span>
-                  <span className={isCurrent ? "text-cyan-neon font-bold" : isCompleted ? "text-emerald-neon font-semibold" : "text-zinc-400"}>
-                    {isCurrent ? "ACTIVE" : isCompleted ? "PASS" : "WAIT"}
+                <div className="flex items-center justify-between text-[10px]">
+                  <span className="text-zinc-400">{stage.number}</span>
+                  <span
+                    className={`px-1 rounded text-[9px] ${
+                      isSelected
+                        ? "bg-accent/20 text-accent-light font-semibold"
+                        : isPast
+                        ? "text-emerald-neon bg-emerald-dim"
+                        : "text-zinc-500"
+                    }`}
+                  >
+                    {isSelected ? "ACTIVE" : isPast ? "RESOLVED" : "QUEUED"}
                   </span>
                 </div>
-                <p className="mt-1 font-mono text-xs font-semibold text-white truncate">
-                  {step.title}
+                <p className="mt-1 font-semibold text-white truncate text-xs">
+                  {stage.title}
+                </p>
+                <p className="text-[10px] text-zinc-400 truncate">
+                  {stage.sub}
                 </p>
               </button>
             );
           })}
         </div>
 
-        {/* Dynamic Detail Panel */}
-        <div className="rounded-lg border border-base-border bg-base-subtle/60 p-3 font-mono text-xs">
-          <div className="flex items-center justify-between text-[10px] text-zinc-400 uppercase tracking-widest pb-1.5 border-b border-base-border">
-            <span>Stage Inspector</span>
-            <span className="text-cyan-neon">Latency: 28.4ms</span>
+        {/* Selected Stage Detail & Code/Data Inspection */}
+        <div className="rounded-lg border border-base-border bg-base-subtle/70 p-3.5 space-y-2.5">
+          <div className="flex items-center justify-between border-b border-base-border/70 pb-2 text-[11px]">
+            <span className="font-semibold text-white flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 text-accent-light" />
+              <span>
+                Stage {currentStage.number}: {currentStage.title} ({currentStage.sub})
+              </span>
+            </span>
+            <span className="text-zinc-400 text-[10px]">
+              Select any stage to inspect
+            </span>
           </div>
-          <p className="mt-2 text-zinc-200">
-            {RETRIEVAL_STEPS[activeStep].detail}
+
+          <p className="font-sans text-xs text-zinc-300 leading-relaxed">
+            {currentStage.details}
           </p>
+
+          <div className="rounded border border-base-border bg-black/60 p-2.5 text-[11px] overflow-x-auto">
+            <span className="text-[10px] text-zinc-400 uppercase tracking-wider block mb-1">
+              Payload / Logic Contract:
+            </span>
+            <pre className="text-zinc-200 whitespace-pre-wrap font-mono leading-relaxed">
+              {currentStage.codeOrData}
+            </pre>
+          </div>
         </div>
 
-        {/* Code / Stream Output Preview */}
-        <div className="rounded-lg border border-base-border bg-black/70 p-3 font-mono text-xs">
+        {/* Streamed Output Card */}
+        <div className="rounded-lg border border-base-border bg-black/80 p-3 text-xs">
           <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/5 text-[10px] text-zinc-400">
             <span className="flex items-center gap-1.5">
-              <Terminal className="h-3 w-3 text-cyan-neon" />
-              <span>REACT SSE TYPING INTERFACE (ZERO-BACKEND MOCK)</span>
+              <Terminal className="h-3 w-3 text-accent-light" />
+              <span>Simulated SSE Response Output</span>
             </span>
-            <span className="text-emerald-neon font-semibold">{tokenCount} tokens streamed</span>
+            <span className="text-emerald-neon font-medium">Deterministic Sample</span>
           </div>
 
-          <div className="min-h-[56px] text-zinc-200 leading-relaxed">
-            {activeStep === 4 ? (
-              <span>
-                {streamedText}
-                <span className="inline-block w-1.5 h-3.5 ml-1 bg-cyan-neon animate-pulse align-middle" />
-              </span>
-            ) : (
-              <span className="text-zinc-400 italic">
-                Awaiting stage 05: Token stream initializes once PostgreSQL CTE merge resolves candidate chunks...
-              </span>
-            )}
-          </div>
+          <p className="font-sans text-xs text-zinc-200 leading-relaxed">
+            &ldquo;According to Section 8.2 of the Master Services Agreement, the indemnification
+            liability for either party is strictly capped at twelve (12) months of aggregate service
+            fees paid preceding the incident. Specific carve-outs apply solely to gross negligence and
+            willful misconduct.&rdquo;
+          </p>
         </div>
       </div>
     </div>

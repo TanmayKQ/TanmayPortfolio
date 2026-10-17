@@ -19,7 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#08090d",
+  themeColor: "#090a0f",
   width: "device-width",
   initialScale: 1,
 };
@@ -110,7 +110,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans bg-base-dark text-zinc-100 min-h-screen bg-grid-pattern antialiased selection:bg-cyan-neon/20 selection:text-white`}
+        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans bg-base-dark text-zinc-100 min-h-screen bg-grid-pattern antialiased selection:bg-accent/25 selection:text-white`}
       >
         <Shell>{children}</Shell>
       </body>

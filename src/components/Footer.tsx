@@ -6,7 +6,11 @@ import { VERIFIED_LINKS } from "@/data/projects";
 
 export function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({
+      top: 0,
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
   };
 
   return (
@@ -27,8 +31,8 @@ export function Footer() {
               href={VERIFIED_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="text-zinc-400 hover:text-cyan-neon transition"
+              aria-label="GitHub Profile"
+              className="text-zinc-400 hover:text-accent-light transition"
             >
               <GithubIcon className="h-4 w-4" />
             </a>
@@ -36,15 +40,15 @@ export function Footer() {
               href={VERIFIED_LINKS.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="text-zinc-400 hover:text-cyan-neon transition"
+              aria-label="LinkedIn Profile"
+              className="text-zinc-400 hover:text-accent-light transition"
             >
               <LinkedinIcon className="h-4 w-4" />
             </a>
             <a
               href={`mailto:${VERIFIED_LINKS.email}`}
-              aria-label="Email"
-              className="text-zinc-400 hover:text-cyan-neon transition"
+              aria-label="Send direct email"
+              className="text-zinc-400 hover:text-accent-light transition"
             >
               <Mail className="h-4 w-4" />
             </a>
@@ -52,7 +56,8 @@ export function Footer() {
             <button
               onClick={scrollToTop}
               type="button"
-              className="flex items-center gap-1 rounded border border-base-border bg-base-subtle px-2.5 py-1 text-[11px] text-zinc-300 hover:border-cyan-neon hover:text-cyan-neon transition"
+              aria-label="Scroll back to top of page"
+              className="flex items-center gap-1 rounded border border-base-border bg-base-subtle px-2.5 py-1 text-[11px] text-zinc-300 hover:border-accent hover:text-accent-light transition"
             >
               <span>Back to top</span>
               <ArrowUp className="h-3 w-3" />

@@ -1,213 +1,279 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Play, Pause, RotateCcw, Activity, ShieldCheck, Layers, Cpu, Database, Radio } from "lucide-react";
+import { useState } from "react";
+import {
+  Activity,
+  ShieldCheck,
+  Layers,
+  Database,
+  Cpu,
+  Radio,
+  ChevronRight,
+  Info,
+  CheckCircle2,
+} from "lucide-react";
 
-interface TraceNode {
+interface PipelineStage {
   id: string;
-  label: string;
-  sub: string;
+  stepNumber: string;
+  name: string;
+  subsystem: string;
   icon: typeof Activity;
-  latency: string;
-  status: string;
+  latencyBudget: string;
+  description: string;
+  dataIn: string;
+  dataOut: string;
+  resilienceMechanism: string;
 }
 
-const TRACE_NODES: TraceNode[] = [
-  { id: "client", label: "Inbound Request", sub: "POST /v1/ingest/stream", icon: Activity, latency: "0.2ms", status: "202 ACCEPTED" },
-  { id: "auth", label: "JWT & Rate Guard", sub: "Token Bucket (4k req/m)", icon: ShieldCheck, latency: "1.4ms", status: "PASS" },
-  { id: "queue", label: "Async Task Queue", sub: "Decoupled Event Queue", icon: Layers, latency: "3.1ms", status: "ENQUEUED" },
-  { id: "hybrid", label: "Hybrid CTE Search", sub: "pgvector 70% + tsvector 30%", icon: Database, latency: "24.8ms", status: "TOP_K=8" },
-  { id: "engine", label: "Model Reasoning", sub: "Gemini 2.5 Flash / LangGraph", icon: Cpu, latency: "89.2ms", status: "STREAMING" },
-  { id: "stream", label: "SSE Token Pipe", sub: "HTTP/2 Chunked Stream", icon: Radio, latency: "128ms", status: "200 OK" },
-];
-
-const LOG_MESSAGES = [
-  "[00:00.002] INGRESS: Client connected from edge region ap-south-1",
-  "[00:00.005] AUTH: Bearer JWT verified · tenant_id=org_prod_89 · scope=write",
-  "[00:00.009] RATE_LIMIT: Token bucket status 3842/4000 · window=60s OK",
-  "[00:00.014] DISPATCH: Worker allocated task_id=tk_7f82c · concurrency=32",
-  "[00:00.038] DB: Executing fused CTE query · cosine_sim(70%) + bm25_lex(30%)",
-  "[00:00.063] DB_RESULT: 8 relevant chunks retrieved in 24.8ms · threshold=0.82",
-  "[00:00.098] INFERENCE: Streaming tokens initialized via async generator",
-  "[00:00.184] EGRESS: Stream completed · 428 tokens transmitted · RTT: 184ms",
+const PIPELINE_STAGES: PipelineStage[] = [
+  {
+    id: "ingress",
+    stepNumber: "01",
+    name: "Inbound Ingestion",
+    subsystem: "FastAPI / Nginx Ingress",
+    icon: Activity,
+    latencyBudget: "< 1.0ms",
+    description:
+      "Accepts multi-tenant document upload payloads. Validates MIME type and structural boundaries, returning HTTP 202 Accepted immediately to prevent client-side worker timeouts.",
+    dataIn: "POST /v1/ingest/stream (Multipart PDF payload)",
+    dataOut: "HTTP 202 Accepted { task_id, status: 'enqueued' }",
+    resilienceMechanism: "Async acknowledgment prevents client connection timeouts on large uploads.",
+  },
+  {
+    id: "auth",
+    stepNumber: "02",
+    name: "JWT & Rate Guard",
+    subsystem: "Auth Middleware & Token Bucket",
+    icon: ShieldCheck,
+    latencyBudget: "1.2ms",
+    description:
+      "Validates RS256 JWT claims and tenant isolation. Evaluates per-tenant token-bucket quota to prevent noisy-neighbor database thrashing.",
+    dataIn: "Bearer Authorization header + Tenant Context",
+    dataOut: "Claims verified, token bucket consumed (-1 unit)",
+    resilienceMechanism: "4,000 req/min token bucket with burst absorption protects database pools.",
+  },
+  {
+    id: "queue",
+    stepNumber: "03",
+    name: "Async Task Worker",
+    subsystem: "Decoupled Job Queue",
+    icon: Layers,
+    latencyBudget: "3.5ms (enqueue)",
+    description:
+      "Dispatches document chunking (500 tokens, 10% overlap) and batch vectorization to background worker threads, freeing synchronous API threads.",
+    dataIn: "Raw document buffer & metadata",
+    dataOut: "Normalized chunks (batch size: 20 chunks/call)",
+    resilienceMechanism: "Decouples resource-heavy PDF parsing from client request-response cycle.",
+  },
+  {
+    id: "hybrid",
+    stepNumber: "04",
+    name: "70/30 Hybrid Retrieval",
+    subsystem: "PostgreSQL (pgvector + tsvector)",
+    icon: Database,
+    latencyBudget: "24.5ms",
+    description:
+      "Executes a single Common Table Expression (CTE) query fusing 70% dense cosine similarity (pgvector) with 30% sparse BM25 lexical ranking (tsvector).",
+    dataIn: "Query embedding [768 dimensions] + Query text tokens",
+    dataOut: "Top-8 candidate chunks with fused reciprocal rank scores",
+    resilienceMechanism: "Captures both conceptual semantics and exact alphanumeric contract IDs without Elasticsearch.",
+  },
+  {
+    id: "inference",
+    stepNumber: "05",
+    name: "Model Reasoning",
+    subsystem: "Gemini 2.5 Flash / LangGraph",
+    icon: Cpu,
+    latencyBudget: "88.0ms (TTFT)",
+    description:
+      "Injects top-8 retrieved passages into an audited prompt harness. Employs async generators to stream tokens with time-to-first-token optimization.",
+    dataIn: "Fused Top-8 Context + System Prompt + User Query",
+    dataOut: "Asynchronous token stream generator",
+    resilienceMechanism: "Schema-constrained generation; fallback cache on upstream timeout.",
+  },
+  {
+    id: "egress",
+    stepNumber: "06",
+    name: "SSE Token Pipe",
+    subsystem: "Server-Sent Events (HTTP/2)",
+    icon: Radio,
+    latencyBudget: "112ms total RTT",
+    description:
+      "Transmits incremental tokens over an active HTTP/2 SSE channel to the client interface with auto-reconnection and low framing overhead.",
+    dataIn: "Chunked string buffer chunks from LLM generator",
+    dataOut: "data: { token, finish_reason } (Content-Type: text/event-stream)",
+    resilienceMechanism: "Unidirectional SSE survives transient network blips with Last-Event-ID.",
+  },
 ];
 
 export function SystemTraceVisual() {
-  const [activeNode, setActiveNode] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [visibleLogs, setVisibleLogs] = useState<string[]>(LOG_MESSAGES.slice(0, 3));
+  const [selectedStageIndex, setSelectedStageIndex] = useState<number>(3); // Default to 70/30 Hybrid Retrieval
 
-  useEffect(() => {
-    if (!isPlaying) return;
-    const interval = setInterval(() => {
-      setActiveNode((prev) => {
-        const next = (prev + 1) % TRACE_NODES.length;
-        const logIndex = Math.min(next + 2, LOG_MESSAGES.length);
-        setVisibleLogs(LOG_MESSAGES.slice(0, logIndex));
-        return next;
-      });
-    }, 1800);
+  const currentStage = PIPELINE_STAGES[selectedStageIndex];
+  const Icon = currentStage.icon;
 
-    return () => clearInterval(interval);
-  }, [isPlaying]);
+  const handleNextStage = () => {
+    setSelectedStageIndex((prev) => (prev + 1) % PIPELINE_STAGES.length);
+  };
 
-  const handleReset = () => {
-    setActiveNode(0);
-    setVisibleLogs(LOG_MESSAGES.slice(0, 2));
+  const handlePrevStage = () => {
+    setSelectedStageIndex((prev) => (prev - 1 + PIPELINE_STAGES.length) % PIPELINE_STAGES.length);
   };
 
   return (
     <div
       role="region"
-      aria-label="Interactive System Architecture Trace"
-      className="relative flex flex-col rounded-xl border border-base-border bg-base-card/90 shadow-2xl backdrop-blur-md overflow-hidden"
+      aria-label="Interactive Architecture Pipeline"
+      className="relative flex flex-col rounded-xl border border-base-border bg-base-card shadow-lg"
     >
-      {/* Terminal Title Bar */}
-      <div className="flex items-center justify-between border-b border-base-border bg-base-subtle/80 px-4 py-2.5">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80 inline-block" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80 inline-block" />
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-neon/80 inline-block" />
-          </div>
-          <span className="ml-2 font-mono text-[11px] text-zinc-400">
-            system_trace_v2.telemetry // LIVE PIPELINE
+      {/* Visual Header */}
+      <div className="flex items-center justify-between border-b border-base-border bg-base-subtle/70 px-4 py-3">
+        <div className="flex items-center gap-2.5">
+          <span className="h-2 w-2 rounded-full bg-accent-light" />
+          <span className="font-mono text-xs font-semibold uppercase tracking-wider text-zinc-200">
+            System Pipeline Architecture
           </span>
         </div>
-
-        <div className="flex items-center gap-1.5 text-zinc-400">
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            type="button"
-            aria-label={isPlaying ? "Pause trace animation" : "Play trace animation"}
-            className="flex h-6 w-6 items-center justify-center rounded hover:bg-white/5 hover:text-cyan-neon transition"
-          >
-            {isPlaying ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
-          </button>
-          <button
-            onClick={handleReset}
-            type="button"
-            aria-label="Reset trace animation"
-            className="flex h-6 w-6 items-center justify-center rounded hover:bg-white/5 hover:text-cyan-neon transition"
-          >
-            <RotateCcw className="h-3 w-3" />
-          </button>
-        </div>
+        <span className="font-mono text-[11px] text-zinc-400">
+          Stage {currentStage.stepNumber} of 06
+        </span>
       </div>
 
-      {/* Main Architecture Flow Grid */}
-      <div className="p-4 sm:p-5">
-        <div className="mb-3 flex items-center justify-between">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400">
-            Trace Nodes &middot; Round-Trip Latency: 184ms
+      <div className="p-4 sm:p-5 space-y-4">
+        {/* Helper Note */}
+        <div className="flex items-center justify-between text-xs text-zinc-400">
+          <span className="font-mono text-[11px]">
+            Select a stage below to inspect its dataflow and failure guard:
           </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-dim px-2 py-0.5 font-mono text-[10px] text-emerald-neon">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-neon animate-pulse" />
-            SYSTEM STABLE
-          </span>
+          <div className="hidden sm:flex items-center gap-2">
+            <button
+              onClick={handlePrevStage}
+              type="button"
+              aria-label="Previous pipeline stage"
+              className="rounded border border-base-border bg-base-subtle px-2 py-0.5 font-mono text-[10px] text-zinc-300 hover:border-accent hover:text-accent-light transition"
+            >
+              Prev
+            </button>
+            <button
+              onClick={handleNextStage}
+              type="button"
+              aria-label="Next pipeline stage"
+              className="rounded border border-base-border bg-base-subtle px-2 py-0.5 font-mono text-[10px] text-zinc-300 hover:border-accent hover:text-accent-light transition"
+            >
+              Next
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-          {TRACE_NODES.map((node, index) => {
-            const Icon = node.icon;
-            const isActive = index === activeNode;
-            const isCompleted = index < activeNode;
+        {/* Pipeline Stage Buttons Grid */}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {PIPELINE_STAGES.map((stage, idx) => {
+            const StageIcon = stage.icon;
+            const isSelected = idx === selectedStageIndex;
 
             return (
               <button
-                key={node.id}
-                onClick={() => setActiveNode(index)}
+                key={stage.id}
+                onClick={() => setSelectedStageIndex(idx)}
                 type="button"
-                className={`relative flex flex-col items-start rounded-lg border p-3 text-left transition-all ${
-                  isActive
-                    ? "border-cyan-neon bg-cyan-dim/40 shadow-[0_0_20px_rgba(0,240,255,0.18)]"
-                    : isCompleted
-                    ? "border-base-border bg-base-subtle/50 text-zinc-200"
-                    : "border-base-border/60 bg-base-subtle/20 text-zinc-400"
+                aria-pressed={isSelected}
+                className={`flex flex-col items-start rounded-lg border p-2.5 text-left transition-all ${
+                  isSelected
+                    ? "border-accent bg-accent-dim text-white ring-1 ring-accent/30"
+                    : "border-base-border bg-base-subtle/50 text-zinc-300 hover:border-zinc-500 hover:bg-base-subtle"
                 }`}
               >
-                <div className="flex w-full items-center justify-between">
+                <div className="flex w-full items-center justify-between text-[10px] font-mono">
+                  <span className="text-zinc-400">{stage.stepNumber}</span>
+                  <span
+                    className={`px-1.5 py-0.5 rounded text-[9px] font-mono ${
+                      isSelected
+                        ? "bg-accent/20 text-accent-light font-semibold"
+                        : "text-zinc-500 bg-black/20"
+                    }`}
+                  >
+                    {stage.latencyBudget}
+                  </span>
+                </div>
+
+                <div className="mt-2 flex items-center gap-1.5 w-full">
                   <div
-                    className={`flex h-6 w-6 items-center justify-center rounded ${
-                      isActive
-                        ? "bg-cyan-neon/20 text-cyan-neon"
-                        : isCompleted
-                        ? "bg-emerald-dim text-emerald-neon"
-                        : "bg-white/5 text-zinc-400"
+                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded ${
+                      isSelected ? "bg-accent text-white" : "bg-black/30 text-zinc-400"
                     }`}
                   >
-                    <Icon className="h-3.5 w-3.5" />
+                    <StageIcon className="h-3 w-3" />
                   </div>
-                  <span
-                    className={`font-mono text-[10px] ${
-                      isActive ? "text-cyan-neon font-semibold" : "text-zinc-400"
-                    }`}
-                  >
-                    {node.latency}
+                  <span className="truncate font-mono text-xs font-medium">
+                    {stage.name}
                   </span>
                 </div>
 
-                <div className="mt-2 w-full">
-                  <p
-                    className={`font-mono text-xs font-medium ${
-                      isActive ? "text-white" : "text-zinc-200"
-                    }`}
-                  >
-                    {node.label}
-                  </p>
-                  <p className="truncate font-mono text-[10px] text-zinc-300">
-                    {node.sub}
-                  </p>
-                </div>
-
-                <div className="mt-2 flex w-full items-center justify-between border-t border-white/5 pt-1.5">
-                  <span className="font-mono text-[9px] text-zinc-400">
-                    STEP 0{index + 1}
-                  </span>
-                  <span
-                    className={`font-mono text-[9px] px-1 rounded ${
-                      isActive
-                        ? "bg-cyan-neon/30 text-cyan-200 font-medium"
-                        : isCompleted
-                        ? "bg-emerald-neon/15 text-emerald-300"
-                        : "text-zinc-400"
-                    }`}
-                  >
-                    {isActive ? "ACTIVE" : isCompleted ? "OK" : "QUEUED"}
-                  </span>
-                </div>
+                <p className="mt-1 w-full truncate font-mono text-[10px] text-zinc-400">
+                  {stage.subsystem}
+                </p>
               </button>
             );
           })}
         </div>
 
-        {/* Live Scrolling Log Lines Panel */}
-        <div className="mt-4 rounded-lg border border-base-border bg-black/60 p-3 font-mono text-[11px] leading-relaxed">
-          <div className="flex items-center justify-between pb-2 mb-2 border-b border-base-border/70 text-[10px] text-zinc-500 uppercase tracking-wider">
-            <span>Live Kernel Telemetry</span>
-            <span className="text-cyan-neon">PID 41920 // ASYNC STREAM</span>
+        {/* Selected Stage Inspector Panel */}
+        <div className="rounded-lg border border-base-border bg-base-subtle/80 p-4 font-mono text-xs space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-base-border/70 pb-2.5">
+            <div className="flex items-center gap-2">
+              <Icon className="h-4 w-4 text-accent-light shrink-0" />
+              <div>
+                <span className="font-bold text-white text-sm">
+                  {currentStage.name}
+                </span>
+                <span className="text-zinc-400 text-[11px] ml-2">
+                  ({currentStage.subsystem})
+                </span>
+              </div>
+            </div>
+            <span className="rounded bg-accent-dim px-2 py-0.5 text-[10px] text-accent-light font-semibold">
+              Latency Budget: {currentStage.latencyBudget}
+            </span>
           </div>
 
-          <div className="space-y-1 max-h-32 overflow-y-auto pr-1">
-            {visibleLogs.map((log, i) => (
-              <div
-                key={i}
-                className={`truncate ${
-                  i === visibleLogs.length - 1
-                    ? "text-cyan-neon font-medium animate-pulse"
-                    : "text-zinc-400"
-                }`}
-              >
-                {log}
-              </div>
-            ))}
+          <p className="font-sans text-xs leading-relaxed text-zinc-300">
+            {currentStage.description}
+          </p>
+
+          <div className="grid gap-2 sm:grid-cols-2 pt-1 text-[11px]">
+            <div className="rounded border border-base-border/80 bg-black/40 p-2.5">
+              <span className="text-[10px] uppercase tracking-wider text-zinc-400 block mb-1">
+                Data Input
+              </span>
+              <span className="text-zinc-200 block truncate">
+                {currentStage.dataIn}
+              </span>
+            </div>
+
+            <div className="rounded border border-base-border/80 bg-black/40 p-2.5">
+              <span className="text-[10px] uppercase tracking-wider text-zinc-400 block mb-1">
+                Data Output
+              </span>
+              <span className="text-zinc-200 block truncate">
+                {currentStage.dataOut}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-2 pt-1 border-t border-base-border/50 text-[11px]">
+            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-neon shrink-0 mt-0.5" />
+            <div className="text-zinc-300 leading-snug">
+              <span className="font-semibold text-zinc-200">Resilience Guard: </span>
+              <span>{currentStage.resilienceMechanism}</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Screen-reader accessible summary */}
+      {/* Screen-reader live region */}
       <div className="sr-only" aria-live="polite">
-        Current system pipeline step: {TRACE_NODES[activeNode].label} - Status: {TRACE_NODES[activeNode].status} with latency {TRACE_NODES[activeNode].latency}.
+        Selected stage {currentStage.stepNumber}: {currentStage.name}. {currentStage.description}
       </div>
     </div>
   );

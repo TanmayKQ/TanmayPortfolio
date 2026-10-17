@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SystemTraceVisual } from "./SystemTraceVisual";
-import { ArrowDown, ArrowDownToLine, ExternalLink } from "lucide-react";
+import { ArrowDown, ArrowDownToLine } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/SocialIcons";
 import { VERIFIED_LINKS } from "@/data/projects";
 
@@ -9,11 +9,11 @@ export function Hero() {
     <section
       id="hero"
       aria-label="Introduction and Overview"
-      className="relative overflow-hidden pt-6 pb-16 md:pt-12 md:pb-24"
+      className="relative overflow-hidden pt-8 pb-16 md:pt-14 md:pb-24"
     >
-      {/* Background subtle radial glow with 0ms blur overhead */}
+      {/* Subtle, restrained depth accent */}
       <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
-        <div className="h-[480px] w-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(0,240,255,0.08)_0%,_transparent_70%)]" />
+        <div className="h-[420px] w-[560px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(99,102,241,0.06)_0%,_transparent_70%)]" />
       </div>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -22,14 +22,14 @@ export function Hero() {
           <div className="space-y-6">
             {/* Eyebrow & Status */}
             <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-3 py-1 font-mono text-xs text-zinc-400">
-                <span className="text-cyan-neon font-semibold">// 00</span>
+              <div className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-3 py-1 font-mono text-xs text-zinc-300">
+                <span className="text-accent-light font-semibold">// 00</span>
                 <span>TANMAY KOTAK &mdash; PUNE, IN</span>
               </div>
 
               {/* Status Chip */}
               <div className="inline-flex items-center gap-2 rounded-full border border-emerald-neon/30 bg-emerald-dim px-3 py-1 text-xs font-mono text-emerald-neon">
-                <span className="h-2 w-2 rounded-full bg-emerald-neon animate-pulse" />
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-neon" />
                 <span>Open to SDE / Backend / AI Engineer internships &middot; Graduating June 2027</span>
               </div>
             </div>
@@ -45,10 +45,10 @@ export function Hero() {
             </p>
 
             {/* CTAs and Social Handles */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
               <Link
                 href="#work"
-                className="inline-flex items-center gap-2 rounded-md bg-cyan-neon px-5 py-3 font-mono text-xs font-bold uppercase tracking-wider text-black transition hover:bg-cyan-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)]"
+                className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 font-mono text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-accent-light"
               >
                 <span>View work</span>
                 <ArrowDown className="h-4 w-4" />
@@ -57,19 +57,19 @@ export function Hero() {
               <a
                 href={VERIFIED_LINKS.resumePdf}
                 download
-                className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-5 py-3 font-mono text-xs font-semibold uppercase tracking-wider text-zinc-200 transition hover:border-cyan-neon hover:text-cyan-neon"
+                className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-5 py-3 font-mono text-xs font-semibold uppercase tracking-wider text-zinc-200 transition hover:border-accent hover:text-accent-light"
               >
                 <ArrowDownToLine className="h-4 w-4" />
                 <span>Download resume</span>
               </a>
 
-              <div className="flex items-center gap-2 pl-2">
+              <div className="flex items-center gap-2 pl-1">
                 <a
                   href={VERIFIED_LINKS.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="GitHub Profile"
-                  className="flex h-10 w-10 items-center justify-center rounded-md border border-base-border bg-base-card text-zinc-400 transition hover:border-cyan-neon hover:text-cyan-neon"
+                  aria-label="GitHub Profile (TanmayKQ)"
+                  className="flex h-10 w-10 items-center justify-center rounded-md border border-base-border bg-base-card text-zinc-400 transition hover:border-accent hover:text-accent-light"
                 >
                   <GithubIcon className="h-4 w-4" />
                 </a>
@@ -79,7 +79,7 @@ export function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn Profile"
-                  className="flex h-10 w-10 items-center justify-center rounded-md border border-base-border bg-base-card text-zinc-400 transition hover:border-cyan-neon hover:text-cyan-neon"
+                  className="flex h-10 w-10 items-center justify-center rounded-md border border-base-border bg-base-card text-zinc-400 transition hover:border-accent hover:text-accent-light"
                 >
                   <LinkedinIcon className="h-4 w-4" />
                 </a>
@@ -87,7 +87,7 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Signature System Trace Visual */}
+          {/* Right Column: Signature System Pipeline Stage Inspector */}
           <div className="w-full">
             <SystemTraceVisual />
           </div>

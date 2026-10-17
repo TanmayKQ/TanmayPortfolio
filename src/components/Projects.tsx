@@ -13,7 +13,7 @@ export function Projects() {
   const renderVisual = (visualName: string) => {
     switch (visualName) {
       case "DocMindRetrievalVisual":
-        return <DocMindRetrievalVisual />;
+        return <DocMindRetrievalVisual variant="compact" />;
       case "DevAgentTerminalVisual":
         return <DevAgentTerminalVisual />;
       case "IntelStudyCircuitVisual":
@@ -31,19 +31,19 @@ export function Projects() {
         {/* Section Header */}
         <div className="mb-14 space-y-2">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400">
-            <span className="text-cyan-neon font-semibold">// 02</span>
+            <span className="text-accent-light font-semibold">// 02</span>
             <span className="uppercase tracking-[0.2em]">Selected Engineering Systems</span>
           </div>
           <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Production-style backends & applied AI tools.
+            Production backends & applied AI tools.
           </h2>
-          <p className="max-w-2xl text-sm text-zinc-400 sm:text-base">
+          <p className="max-w-2xl text-sm text-zinc-400 sm:text-base font-sans">
             Engineered with schema constraints, defensive recovery loops, and verified test benchmarks.
           </p>
         </div>
 
         {/* Editorial Project Rows */}
-        <div className="space-y-20">
+        <div className="space-y-16">
           {PROJECTS.map((project, idx) => (
             <article
               key={project.slug}
@@ -53,7 +53,7 @@ export function Projects() {
                 {/* Information / Narrative Column (5 cols) */}
                 <div className="space-y-5 lg:col-span-5">
                   <div className="flex items-center gap-2 font-mono text-xs text-zinc-400">
-                    <span className="text-cyan-neon font-bold">PROJECT 0{idx + 1}</span>
+                    <span className="text-accent-light font-bold">PROJECT 0{idx + 1}</span>
                     <span>&mdash;</span>
                     <span className="uppercase">{project.shortTitle}</span>
                   </div>
@@ -83,7 +83,7 @@ export function Projects() {
                   <ul className="space-y-2.5 pt-2 text-xs sm:text-sm text-zinc-300">
                     {project.bullets.map((bullet, bIdx) => (
                       <li key={bIdx} className="flex items-start gap-2.5 leading-relaxed">
-                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-cyan-neon shrink-0" />
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent-light shrink-0" />
                         <span>{bullet}</span>
                       </li>
                     ))}
@@ -93,7 +93,7 @@ export function Projects() {
                   <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-base-border">
                     <Link
                       href={`/projects/${project.slug}`}
-                      className="inline-flex items-center gap-1.5 rounded-md bg-cyan-neon/10 border border-cyan-neon/40 px-3.5 py-2 font-mono text-xs font-semibold text-cyan-neon hover:bg-cyan-neon/20 hover:border-cyan-neon transition"
+                      className="inline-flex items-center gap-1.5 rounded-md bg-accent-dim border border-accent/40 px-3.5 py-2 font-mono text-xs font-semibold text-accent-light hover:bg-accent/20 hover:border-accent transition"
                     >
                       <BookOpen className="h-3.5 w-3.5" />
                       <span>Read case study</span>
@@ -105,7 +105,7 @@ export function Projects() {
                         href={project.repo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-md border border-base-border bg-base-subtle px-3 py-2 font-mono text-xs text-zinc-300 hover:border-cyan-neon hover:text-cyan-neon transition"
+                        className="inline-flex items-center gap-1.5 rounded-md border border-base-border bg-base-subtle px-3 py-2 font-mono text-xs text-zinc-300 hover:border-accent hover:text-accent-light transition"
                       >
                         <GithubIcon className="h-3.5 w-3.5" />
                         <span>Repository</span>

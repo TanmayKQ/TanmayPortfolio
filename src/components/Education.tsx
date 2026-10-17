@@ -13,7 +13,7 @@ export function Education() {
     <div className="rounded-2xl border border-base-border bg-base-card p-6 sm:p-7">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between border-b border-base-border pb-4">
         <div className="flex items-start gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-dim text-cyan-neon shrink-0">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-dim text-accent-light shrink-0">
             <GraduationCap className="h-5 w-5" />
           </div>
           <div>

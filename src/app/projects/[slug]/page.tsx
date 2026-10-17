@@ -46,7 +46,7 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
   const renderVisual = (visualName: string) => {
     switch (visualName) {
       case "DocMindRetrievalVisual":
-        return <DocMindRetrievalVisual />;
+        return <DocMindRetrievalVisual variant="full" />;
       case "DevAgentTerminalVisual":
         return <DevAgentTerminalVisual />;
       case "IntelStudyCircuitVisual":
@@ -67,7 +67,7 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
         <div className="mb-8">
           <Link
             href="/#work"
-            className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 hover:text-cyan-neon transition-colors"
+            className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 hover:text-accent-light transition-colors"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             <span>Back to selected work</span>
@@ -76,8 +76,8 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
 
         {/* Case Study Header */}
         <header className="space-y-4 border-b border-base-border pb-8">
-          <div className="flex items-center gap-2 font-mono text-xs text-zinc-500">
-            <span className="text-cyan-neon font-semibold">// ARCHITECTURAL CASE STUDY</span>
+          <div className="flex items-center gap-2 font-mono text-xs text-zinc-400">
+            <span className="text-accent-light font-semibold">// ARCHITECTURAL CASE STUDY</span>
             <span>&middot;</span>
             <span className="uppercase">{project.shortTitle}</span>
           </div>
@@ -109,7 +109,7 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
                 href={project.repo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-3.5 py-2 font-mono text-xs font-semibold text-zinc-200 hover:border-cyan-neon hover:text-cyan-neon transition"
+                className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-3.5 py-2 font-mono text-xs font-semibold text-zinc-200 hover:border-accent hover:text-accent-light transition"
               >
                 <GithubIcon className="h-4 w-4" />
                 <span>Source Repository</span>
@@ -136,7 +136,7 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
             <span className="font-mono text-xs uppercase tracking-wider text-zinc-400">
               Interactive System Simulator
             </span>
-            <span className="font-mono text-[11px] text-cyan-neon">CODE-BUILT &middot; ZERO MOCK IMAGES</span>
+            <span className="font-mono text-[11px] text-accent-light">CODE-BUILT &middot; ZERO MOCK IMAGES</span>
           </div>
           {renderVisual(project.visual)}
         </div>
@@ -173,21 +173,21 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
               <h2 className="font-display text-2xl font-bold text-white mb-3">
                 What broke or failed with naive implementations?
               </h2>
-              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">
+              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base font-sans">
                 {project.caseStudy.problem}
               </p>
             </section>
 
             {/* Approach Section */}
             <section className="rounded-xl border border-base-border bg-base-card p-6 sm:p-8">
-              <div className="flex items-center gap-2 font-mono text-xs text-cyan-neon mb-3">
-                <span className="h-2 w-2 rounded-full bg-cyan-neon" />
+              <div className="flex items-center gap-2 font-mono text-xs text-accent-light mb-3">
+                <span className="h-2 w-2 rounded-full bg-accent" />
                 <span className="uppercase tracking-widest font-semibold">02 &mdash; Technical Approach</span>
               </div>
               <h2 className="font-display text-2xl font-bold text-white mb-3">
                 Architectural strategy & design decisions
               </h2>
-              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base">
+              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base font-sans">
                 {project.caseStudy.approach}
               </p>
             </section>
@@ -201,7 +201,7 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
               <h2 className="font-display text-xl font-bold text-white mb-4">
                 Dataflow & Component Interconnect
               </h2>
-              <div className="rounded-lg border border-base-border bg-black/80 p-4 text-xs text-cyan-neon leading-relaxed overflow-x-auto whitespace-pre-wrap">
+              <div className="rounded-lg border border-base-border bg-black/80 p-4 text-xs text-zinc-200 leading-relaxed overflow-x-auto whitespace-pre-wrap">
                 {project.caseStudy.architecture}
               </div>
             </section>
@@ -215,13 +215,13 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
               <h2 className="font-display text-2xl font-bold text-white mb-6">
                 Why this choice over the alternatives?
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-4 font-sans">
                 {project.caseStudy.keyDecisions.map((decision, dIdx) => (
                   <div
                     key={dIdx}
                     className="flex items-start gap-3 rounded-lg border border-base-border bg-base-subtle/50 p-4"
                   >
-                    <CheckCircle2 className="h-4 w-4 text-cyan-neon shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-accent-light shrink-0 mt-0.5" />
                     <p className="text-sm text-zinc-300 leading-relaxed">
                       {decision}
                     </p>
@@ -233,16 +233,16 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
             {/* What I'd do next */}
             <section className="rounded-xl border border-base-border bg-base-card p-6 sm:p-8">
               <div className="flex items-center gap-2 font-mono text-xs text-zinc-400 mb-3">
-                <GitFork className="h-4 w-4 text-cyan-neon" />
+                <GitFork className="h-4 w-4 text-accent-light" />
                 <span className="uppercase tracking-widest font-semibold">05 &mdash; Future Roadmap</span>
               </div>
               <h2 className="font-display text-2xl font-bold text-white mb-4">
                 What I would improve in subsequent iterations
               </h2>
-              <ul className="space-y-3">
+              <ul className="space-y-3 font-sans">
                 {project.caseStudy.whatNext.map((item, nIdx) => (
                   <li key={nIdx} className="flex items-start gap-3 text-sm text-zinc-300">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-neon shrink-0" />
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent-light shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -261,15 +261,15 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
               <Link
                 key={other.slug}
                 href={`/projects/${other.slug}`}
-                className="group flex flex-col justify-between rounded-lg border border-base-border bg-base-card p-4 transition hover:border-cyan-neon/60 hover:bg-base-subtle"
+                className="group flex flex-col justify-between rounded-lg border border-base-border bg-base-card p-4 transition hover:border-accent hover:bg-base-subtle"
               >
                 <div>
                   <span className="font-mono text-[10px] text-zinc-500 uppercase">CASE STUDY</span>
-                  <p className="font-display text-sm font-semibold text-white group-hover:text-cyan-neon transition-colors mt-1">
+                  <p className="font-display text-sm font-semibold text-white group-hover:text-accent-light transition-colors mt-1">
                     {other.shortTitle}
                   </p>
                 </div>
-                <div className="mt-3 flex items-center gap-1 font-mono text-xs text-cyan-neon">
+                <div className="mt-3 flex items-center gap-1 font-mono text-xs text-accent-light">
                   <span>Read</span>
                   <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
