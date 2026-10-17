@@ -50,7 +50,7 @@ function renderHighlightedLine(line: string, lineKey: string | number) {
     const valWithoutComma = hasComma ? rawVal.slice(0, -1).trim() : rawVal.trim();
 
     return (
-      <div key={lineKey} className="leading-relaxed">
+      <div key={lineKey} className="leading-relaxed break-words">
         <span>{indent}</span>
         <span className="text-accent-light font-medium">{key}</span>
         <span className="text-zinc-500">: </span>
@@ -65,7 +65,7 @@ function renderHighlightedLine(line: string, lineKey: string | number) {
   if (arrayStringMatch) {
     const [, indent, strVal, comma] = arrayStringMatch;
     return (
-      <div key={lineKey} className="leading-relaxed">
+      <div key={lineKey} className="leading-relaxed break-words">
         <span>{indent}</span>
         {renderJsonValue(strVal)}
         {comma && <span className="text-zinc-500">{comma}</span>}
@@ -87,13 +87,13 @@ function renderJsonValue(rawVal: string) {
     const text = rawVal.slice(1, -1);
     if (text.startsWith("http://") || text.startsWith("https://") || text.startsWith("mailto:")) {
       return (
-        <span>
+        <span className="break-all">
           <span className="text-zinc-400">&quot;</span>
           <a
             href={text}
             target={text.startsWith("mailto:") ? "_self" : "_blank"}
             rel="noopener noreferrer"
-            className="text-accent-light underline underline-offset-2 hover:text-white transition-colors"
+            className="text-accent-light underline underline-offset-2 hover:text-white transition-colors break-all"
           >
             {text}
           </a>
@@ -101,7 +101,7 @@ function renderJsonValue(rawVal: string) {
         </span>
       );
     }
-    return <span className="text-zinc-300">&quot;{text}&quot;</span>;
+    return <span className="text-zinc-300 break-words">&quot;{text}&quot;</span>;
   }
 
   // Number check
@@ -223,23 +223,23 @@ export function ApiTerminal() {
   };
 
   return (
-    <div className="w-full space-y-3">
+    <div className="w-full min-w-0 max-w-full space-y-3">
       {/* Top Profile Status Chip */}
-      <div className="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl sm:rounded-full border border-base-border bg-base-card/90 px-3 py-2 sm:px-3.5 sm:py-1.5 shadow-sm max-w-full">
-        <div className="relative h-8 w-8 sm:h-9 sm:w-9 shrink-0 overflow-hidden rounded-full border border-accent/40 bg-base-subtle">
+      <div className="flex items-center gap-2.5 sm:gap-3 rounded-full border border-base-border bg-base-card/90 px-3 py-1.5 shadow-sm w-fit max-w-full min-w-0">
+        <div className="relative h-7 w-7 sm:h-8 sm:w-8 shrink-0 overflow-hidden rounded-full border border-accent/40 bg-base-subtle">
           <Image
             src="/IMG-20251114-WA0081.jpg"
             alt="Tanmay Kotak"
-            width={36}
-            height={36}
+            width={32}
+            height={32}
             className="h-full w-full object-cover grayscale contrast-110"
             priority
           />
         </div>
         <div className="flex items-center gap-2 min-w-0">
           <span className="h-2 w-2 rounded-full bg-emerald-neon animate-pulse shrink-0" />
-          <span className="font-mono text-[11px] sm:text-xs text-zinc-200 leading-snug">
-            Open to SDE / Backend / AI Engineer internships and full-time roles
+          <span className="font-mono text-[11px] sm:text-xs text-zinc-200 leading-tight truncate sm:whitespace-normal">
+            Open to internships &amp; full-time roles
           </span>
         </div>
       </div>
@@ -248,17 +248,17 @@ export function ApiTerminal() {
       <div
         role="region"
         aria-label="Portfolio API Terminal"
-        className="rounded-xl border border-base-border bg-base-card shadow-2xl overflow-hidden font-mono text-xs"
+        className="w-full min-w-0 max-w-full rounded-xl border border-base-border bg-base-card shadow-2xl overflow-hidden font-mono text-xs"
       >
         {/* Terminal Chrome Bar */}
-        <div className="flex items-center justify-between border-b border-base-border bg-base-subtle/80 px-3 sm:px-4 py-2.5">
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5">
+        <div className="flex items-center justify-between border-b border-base-border bg-base-subtle/80 px-3 sm:px-4 py-2 min-w-0">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="flex items-center gap-1.5 shrink-0">
               <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80 inline-block" />
               <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80 inline-block" />
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-neon/80 inline-block" />
             </div>
-            <span className="ml-1 sm:ml-2 font-mono text-[10px] sm:text-[11px] text-zinc-400">
+            <span className="ml-1 sm:ml-2 font-mono text-[10px] sm:text-[11px] text-zinc-400 truncate">
               tanmay@portfolio &mdash; zsh
             </span>
           </div>
@@ -267,7 +267,7 @@ export function ApiTerminal() {
             onClick={handleCopy}
             type="button"
             aria-label="Copy curl command to clipboard"
-            className="flex items-center gap-1.5 rounded border border-base-border bg-base-card px-2 py-1 text-[10px] sm:text-[11px] text-zinc-300 hover:border-accent hover:text-accent-light transition"
+            className="flex items-center gap-1 rounded border border-base-border bg-base-card px-2 py-1 text-[10px] sm:text-[11px] text-zinc-300 hover:border-accent hover:text-accent-light transition shrink-0"
           >
             {isCopied ? (
               <>
@@ -287,7 +287,7 @@ export function ApiTerminal() {
         <div
           role="tablist"
           aria-label="API Endpoints"
-          className="flex items-center gap-1 border-b border-base-border bg-black/40 px-2 sm:px-3 py-1.5 overflow-x-auto no-scrollbar touch-scroll"
+          className="w-full min-w-0 max-w-full flex items-center gap-1 border-b border-base-border bg-black/40 px-2 sm:px-3 py-1.5 overflow-x-auto no-scrollbar touch-scroll"
         >
           {(["me", "projects", "experience", "contact"] as ApiTab[]).map((tab) => {
             const isSelected = activeTab === tab;
@@ -301,13 +301,14 @@ export function ApiTerminal() {
                 tabIndex={isSelected ? 0 : -1}
                 onClick={() => setActiveTab(tab)}
                 onKeyDown={(e) => handleKeyDownTab(e, tab)}
-                className={`rounded px-2.5 sm:px-3 py-1 font-mono text-[11px] sm:text-xs transition-colors shrink-0 ${
+                className={`rounded px-2.5 sm:px-3 py-1 font-mono text-[11px] sm:text-xs transition-colors shrink-0 whitespace-nowrap ${
                   isSelected
                     ? "bg-accent text-white font-medium shadow-sm"
                     : "text-zinc-400 hover:text-zinc-200 hover:bg-white/5"
                 }`}
               >
-                /api/{tab}.json
+                <span className="sm:hidden">{tab}</span>
+                <span className="hidden sm:inline">/api/{tab}.json</span>
               </button>
             );
           })}
@@ -320,24 +321,24 @@ export function ApiTerminal() {
           aria-labelledby={`tab-${activeTab}`}
           aria-label={`API response for ${activeTab}`}
           tabIndex={0}
-          className="p-3.5 sm:p-5 max-h-[420px] min-h-[280px] sm:min-h-[340px] overflow-y-auto bg-black/90 focus:outline-none touch-scroll"
+          className="w-full min-w-0 max-w-full p-3 sm:p-4 max-h-[360px] sm:max-h-[420px] min-h-[220px] sm:min-h-[300px] overflow-y-auto overflow-x-auto bg-black/90 focus:outline-none touch-scroll"
         >
           {/* Shell Command Prompt Line */}
-          <div className="flex items-start gap-2 text-zinc-300 pb-3 border-b border-white/5 break-all sm:break-normal text-[11px] sm:text-xs">
+          <div className="flex items-start gap-1.5 text-zinc-300 pb-2.5 border-b border-white/5 text-[11px] sm:text-xs min-w-0">
             <span className="text-emerald-neon font-bold shrink-0">$</span>
-            <span className="text-white select-all">
+            <span className="text-white select-all break-all min-w-0">
               {isMounted ? typedCommand : `$ ${currentCommand}`}
             </span>
             {isTyping && (
-              <span className="inline-block w-2 h-3.5 sm:h-4 bg-accent-light animate-pulse align-middle shrink-0" />
+              <span className="inline-block w-1.5 h-3 sm:h-3.5 bg-accent-light animate-pulse align-middle shrink-0 ml-0.5" />
             )}
           </div>
 
           {/* JSON Body (SSR & Hydration safe) */}
-          <div className="pt-3 font-mono text-[11px] sm:text-xs leading-relaxed">
+          <div className="pt-2.5 font-mono text-[11px] sm:text-xs leading-relaxed overflow-x-auto touch-scroll break-words">
             {!isMounted ? (
               // Pre-rendered HTML for search crawlers and non-JS clients
-              <pre className="text-zinc-300 whitespace-pre-wrap">
+              <pre className="text-zinc-300 whitespace-pre-wrap break-all">
                 {JSON.stringify(TAB_DATA.me.data, null, 2)}
               </pre>
             ) : (
