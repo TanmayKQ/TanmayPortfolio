@@ -71,11 +71,11 @@ export function ProofStrip() {
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-accent-light" />
             <span className="font-mono text-xs uppercase tracking-wider text-zinc-400">
-              Verified Project Milestones &middot; Shipped &amp; Defensible
+              By the numbers
             </span>
           </div>
           <span className="hidden font-mono text-[11px] text-zinc-400 sm:inline">
-            Recorded Data
+            Shipped Systems
           </span>
         </div>
 

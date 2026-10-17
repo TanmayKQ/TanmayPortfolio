@@ -1,13 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { EXPERIENCE } from "@/data/projects";
-import { AsnStateMachineVisual } from "./visuals/AsnStateMachineVisual";
-import { Briefcase, Calendar, MapPin, ChevronDown, ChevronUp, Network } from "lucide-react";
+import { Briefcase, Calendar, MapPin } from "lucide-react";
 
 export function Experience() {
-  const [showStateMachine, setShowStateMachine] = useState(true);
-
   return (
     <section id="experience" aria-label="Professional Experience" className="py-16 md:py-24 border-t border-base-border">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -26,7 +22,7 @@ export function Experience() {
         </div>
 
         {/* Timeline Entries */}
-        <div className="space-y-12">
+        <div className="space-y-10">
           {EXPERIENCE.map((item, idx) => (
             <div
               key={idx}
@@ -62,32 +58,10 @@ export function Experience() {
                   {item.bullets.map((bullet, bulletIdx) => (
                     <li key={bulletIdx} className="flex items-start gap-3 text-sm text-zinc-300 leading-relaxed">
                       <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent-light shrink-0" />
-                      <div className="flex-1">
-                        <span>{bullet}</span>
-
-                        {/* Interactive toggle on the state machine bullet */}
-                        {item.hasStateMachineVisual && bulletIdx === 1 && (
-                          <div className="mt-3">
-                            <button
-                              onClick={() => setShowStateMachine(!showStateMachine)}
-                              type="button"
-                              className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent-dim px-3 py-1.5 font-mono text-xs font-medium text-accent-light hover:bg-accent/20 transition"
-                            >
-                              <Network className="h-3.5 w-3.5" />
-                              <span>{showStateMachine ? "Collapse ASN state machine" : "Inspect ASN state machine & rollback guard"}</span>
-                              {showStateMachine ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
-                            </button>
-                          </div>
-                        )}
-                      </div>
+                      <span className="flex-1">{bullet}</span>
                     </li>
                   ))}
                 </ul>
-
-                {/* State Machine Diagram Render */}
-                {item.hasStateMachineVisual && showStateMachine && (
-                  <AsnStateMachineVisual />
-                )}
               </div>
             </div>
           ))}

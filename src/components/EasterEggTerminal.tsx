@@ -22,8 +22,9 @@ export function EasterEggTerminal({
       command: "init",
       output: (
         <div className="text-zinc-400 space-y-1">
-          <p className="text-cyan-neon font-semibold">Tanmay Kotak Kernel Terminal v2.0.4 (x86_64-pc-none)</p>
-          <p>Type <span className="text-emerald-neon font-bold">help</span> to view available system commands.</p>
+          <p className="text-accent-light font-semibold">Tanmay Kotak Interactive Console</p>
+          <p className="text-zinc-300">Open to SDE / Backend / AI Engineer internships and full-time roles.</p>
+          <p>Type <span className="text-accent-light font-bold">help</span> to view available commands.</p>
         </div>
       ),
     },
@@ -57,13 +58,26 @@ export function EasterEggTerminal({
       case "help":
         output = (
           <div className="space-y-1 text-zinc-300">
-            <p className="text-cyan-neon font-bold">Available System Commands:</p>
-            <p><span className="text-emerald-neon font-mono w-24 inline-block">projects</span> &mdash; List active engineering projects &amp; stack</p>
-            <p><span className="text-emerald-neon font-mono w-24 inline-block">experience</span> &mdash; View Krios Info Solutions internship summary</p>
-            <p><span className="text-emerald-neon font-mono w-24 inline-block">contact</span> &mdash; Output verified contact endpoints</p>
-            <p><span className="text-emerald-neon font-mono w-24 inline-block">resume</span> &mdash; Trigger direct download of TanmayKotakResume.pdf</p>
-            <p><span className="text-emerald-neon font-mono w-24 inline-block">clear</span> &mdash; Clear current terminal buffer</p>
-            <p><span className="text-emerald-neon font-mono w-24 inline-block">exit</span> &mdash; Close this terminal window</p>
+            <p className="text-accent-light font-bold">Available Commands:</p>
+            <p><span className="text-accent-light font-mono w-24 inline-block">whoami</span> &mdash; Profile, education, and availability</p>
+            <p><span className="text-accent-light font-mono w-24 inline-block">projects</span> &mdash; List active engineering projects &amp; stack</p>
+            <p><span className="text-accent-light font-mono w-24 inline-block">experience</span> &mdash; View Krios Info Solutions internship summary</p>
+            <p><span className="text-accent-light font-mono w-24 inline-block">contact</span> &mdash; Output verified contact endpoints</p>
+            <p><span className="text-accent-light font-mono w-24 inline-block">resume</span> &mdash; Trigger direct download of TanmayKotakResume.pdf</p>
+            <p><span className="text-accent-light font-mono w-24 inline-block">clear</span> &mdash; Clear current terminal buffer</p>
+            <p><span className="text-accent-light font-mono w-24 inline-block">exit</span> &mdash; Close this terminal window</p>
+          </div>
+        );
+        break;
+
+      case "whoami":
+        output = (
+          <div className="space-y-1 text-zinc-300">
+            <p className="text-accent-light font-semibold">Tanmay Kotak</p>
+            <p>Role: Backend &amp; Applied AI Engineer</p>
+            <p>Education: B.E. Computer Engineering, D.Y. Patil College of Engineering, Akurdi, Pune (Graduating June 2027)</p>
+            <p>Status: Open to SDE / Backend / AI Engineer internships and full-time roles</p>
+            <p>Location: Pune, Maharashtra, India</p>
           </div>
         );
         break;
@@ -71,12 +85,12 @@ export function EasterEggTerminal({
       case "projects":
         output = (
           <div className="space-y-2 text-zinc-300">
-            <p className="text-cyan-neon font-semibold">Active Engineered Projects:</p>
+            <p className="text-accent-light font-semibold">Active Engineered Projects:</p>
             {PROJECTS.map((p, idx) => (
               <div key={p.slug} className="border-l-2 border-base-border pl-2 py-0.5">
                 <p className="text-white font-bold">0{idx + 1}. {p.title}</p>
                 <p className="text-xs text-zinc-400">{p.tagline}</p>
-                <p className="text-[11px] text-cyan-neon font-mono">[{p.stack.join(" · ")}]</p>
+                <p className="text-[11px] text-accent-light font-mono">[{p.stack.join(" · ")}]</p>
               </div>
             ))}
           </div>
@@ -86,9 +100,9 @@ export function EasterEggTerminal({
       case "experience":
         output = (
           <div className="space-y-2 text-zinc-300">
-            <p className="text-cyan-neon font-semibold">Professional Engineering Experience:</p>
+            <p className="text-accent-light font-semibold">Professional Engineering Experience:</p>
             {EXPERIENCE.map((exp, idx) => (
-              <div key={idx} className="border-l-2 border-emerald-neon/60 pl-2 py-1">
+              <div key={idx} className="border-l-2 border-accent/60 pl-2 py-1">
                 <p className="text-white font-bold">{exp.role} &middot; {exp.company}</p>
                 <p className="text-xs text-zinc-400">{exp.location} ({exp.period})</p>
                 <p className="text-xs text-zinc-300 mt-1">{exp.bullets[0]}</p>
@@ -101,17 +115,17 @@ export function EasterEggTerminal({
       case "contact":
         output = (
           <div className="space-y-1 text-zinc-300">
-            <p className="text-cyan-neon font-semibold">Verified Contact Endpoints:</p>
-            <p>Email: <a href={`mailto:${VERIFIED_LINKS.email}`} className="text-emerald-neon underline">{VERIFIED_LINKS.email}</a></p>
-            <p>GitHub: <a href={VERIFIED_LINKS.github} target="_blank" rel="noreferrer" className="text-emerald-neon underline">{VERIFIED_LINKS.github}</a></p>
-            <p>LinkedIn: <a href={VERIFIED_LINKS.linkedin} target="_blank" rel="noreferrer" className="text-emerald-neon underline">{VERIFIED_LINKS.linkedin}</a></p>
+            <p className="text-accent-light font-semibold">Verified Contact Endpoints:</p>
+            <p>Email: <a href={`mailto:${VERIFIED_LINKS.email}`} className="text-accent-light underline">{VERIFIED_LINKS.email}</a></p>
+            <p>GitHub: <a href={VERIFIED_LINKS.github} target="_blank" rel="noreferrer" className="text-accent-light underline">{VERIFIED_LINKS.github}</a></p>
+            <p>LinkedIn: <a href={VERIFIED_LINKS.linkedin} target="_blank" rel="noreferrer" className="text-accent-light underline">{VERIFIED_LINKS.linkedin}</a></p>
           </div>
         );
         break;
 
       case "resume":
         window.open(VERIFIED_LINKS.resumePdf, "_blank");
-        output = <p className="text-emerald-neon">Initiating download of TanmayKotakResume.pdf...</p>;
+        output = <p className="text-accent-light">Initiating download of TanmayKotakResume.pdf...</p>;
         break;
 
       case "clear":
@@ -126,7 +140,7 @@ export function EasterEggTerminal({
       default:
         output = (
           <p className="text-rose-400">
-            Command not recognized: &apos;{raw}&apos;. Type <span className="text-cyan-neon">help</span> for command directory.
+            Command not recognized: &apos;{raw}&apos;. Type <span className="text-accent-light">help</span> for command directory.
           </p>
         );
     }
@@ -181,7 +195,7 @@ export function EasterEggTerminal({
           <div className="flex items-center gap-2">
             <TerminalIcon className="h-4 w-4 text-accent-light" />
             <span className="font-semibold text-zinc-200">
-              tanmay@systems-node:~ (bash)
+              tanmay@portfolio:~$ (interactive)
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -202,7 +216,7 @@ export function EasterEggTerminal({
           {history.map((entry, idx) => (
             <div key={idx} className="space-y-1">
               <div className="flex items-center gap-2 text-accent-light">
-                <span>tanmay@systems-node:~$</span>
+                <span>tanmay@portfolio:~$</span>
                 <span className="text-white">{entry.command}</span>
               </div>
               <div className="pl-4">{entry.output}</div>
@@ -211,7 +225,7 @@ export function EasterEggTerminal({
 
           {/* Prompt line */}
           <div className="flex items-center gap-2 text-accent-light pt-1">
-            <span>tanmay@systems-node:~$</span>
+            <span>tanmay@portfolio:~$</span>
             <input
               ref={inputRef}
               type="text"
@@ -228,8 +242,8 @@ export function EasterEggTerminal({
 
         {/* Footer info */}
         <div className="flex items-center justify-between border-t border-base-border bg-base-card/50 px-4 py-1.5 text-[10px] text-zinc-500">
-          <span>STATUS: PID 9201 ONLINE</span>
-          <span>UTF-8 // TTY</span>
+          <span>PORTFOLIO CLI SHELL</span>
+          <span>Type &apos;help&apos; &middot; Press ESC to close</span>
         </div>
       </div>
     </div>

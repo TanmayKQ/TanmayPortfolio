@@ -105,7 +105,10 @@ export function IntelStudyCircuitVisual() {
         <div className="flex items-center gap-2">
           <Activity className="h-4 w-4 text-accent-light" />
           <span className="font-semibold text-zinc-200">
-            intelstudy_circuit_breaker.sys // RESILIENT INFERENCE
+            intelstudy_circuit_breaker
+          </span>
+          <span className="rounded border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-amber-300 font-semibold">
+            ILLUSTRATIVE SIMULATION
           </span>
         </div>
 

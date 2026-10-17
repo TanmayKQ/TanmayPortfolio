@@ -50,8 +50,10 @@ export function CommandPalette({
     const isLight = document.documentElement.classList.contains("light");
     if (isLight) {
       document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
       localStorage.setItem("tk_theme", "dark");
     } else {
+      document.documentElement.classList.remove("dark");
       document.documentElement.classList.add("light");
       localStorage.setItem("tk_theme", "light");
     }

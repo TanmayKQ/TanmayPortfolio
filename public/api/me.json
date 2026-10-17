@@ -1,0 +1,36 @@
+{
+  "name": "Tanmay Kotak",
+  "role": "Backend & Applied AI Engineer",
+  "location": "Pune, IN",
+  "status": "open_to_internships_and_full_time",
+  "looking_for": [
+    "SDE",
+    "Backend",
+    "AI Engineer"
+  ],
+  "graduating": "2027-06",
+  "focus": [
+    "REST APIs",
+    "SAP S/4HANA integrations",
+    "RAG pipelines",
+    "agentic AI"
+  ],
+  "stack": [
+    "TypeScript",
+    "Python",
+    "Node.js",
+    "FastAPI",
+    "PostgreSQL",
+    "Prisma"
+  ],
+  "shipped": {
+    "rest_apis": "130+",
+    "sap_pipelines": 9,
+    "prisma_models": 28
+  },
+  "links": {
+    "github": "https://github.com/TanmayKQ",
+    "linkedin": "https://www.linkedin.com/in/tanmay-kotak-b3840b282/",
+    "resume": "https://tanmay-devprofile.vercel.app/TanmayKotakResume.pdf"
+  }
+}

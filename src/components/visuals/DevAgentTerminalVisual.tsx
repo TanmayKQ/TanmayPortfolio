@@ -156,7 +156,10 @@ export function DevAgentTerminalVisual() {
         <div className="flex items-center gap-2">
           <Terminal className="h-4 w-4 text-accent-light" />
           <span className="font-semibold text-zinc-200">
-            devagent_session_replay // CI BENCHMARK RUN
+            devagent_replay
+          </span>
+          <span className="rounded border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-amber-300 font-semibold">
+            ILLUSTRATIVE REPLAY
           </span>
         </div>
 

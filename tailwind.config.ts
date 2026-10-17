@@ -12,18 +12,18 @@ const config: Config = {
     extend: {
       colors: {
         base: {
-          dark: "#090a0f",
-          card: "#11141e",
-          subtle: "#161a27",
-          border: "#1e2436",
-          borderLight: "#2b334c",
+          dark: "var(--bg-primary)",
+          card: "var(--bg-card)",
+          subtle: "var(--bg-subtle)",
+          border: "var(--border-color)",
+          borderLight: "var(--border-light)",
         },
         // Restrained, engineering-focused violet/blue primary accent
         accent: {
-          DEFAULT: "#6366f1",
-          light: "#818cf8",
-          dim: "rgba(99, 102, 241, 0.12)",
-          glow: "rgba(99, 102, 241, 0.25)",
+          DEFAULT: "var(--accent)",
+          light: "var(--accent-light)",
+          dim: "var(--accent-dim)",
+          glow: "var(--accent-glow)",
           border: "rgba(99, 102, 241, 0.35)",
         },
         // Semantic statuses strictly reserved for state feedback
@@ -39,17 +39,27 @@ const config: Config = {
           neon: "#f43f5e",
           dim: "rgba(244, 63, 94, 0.12)",
         },
-        // Compatibility alias mapping cyan to our refined accent tokens
+        // Compatibility alias mapping cyan to accent tokens
         cyan: {
-          neon: "#818cf8",
-          dim: "rgba(99, 102, 241, 0.12)",
-          glow: "rgba(99, 102, 241, 0.25)",
+          neon: "var(--accent-light)",
+          dim: "var(--accent-dim)",
+          glow: "var(--accent-glow)",
         },
       },
       fontFamily: {
-        display: ["var(--font-space)", "sans-serif"],
+        display: ["var(--font-space)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "monospace"],
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        sans: [
+          "var(--font-sans)",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif",
+        ],
       },
       animation: {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",

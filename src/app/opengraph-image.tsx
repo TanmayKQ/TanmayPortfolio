@@ -66,7 +66,7 @@ export default async function Image() {
               fontWeight: 600,
             }}
           >
-            Open to internships &middot; June 2027
+            Open to internships & full-time roles &middot; June 2027
           </div>
         </div>
 

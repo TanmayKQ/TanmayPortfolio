@@ -6,8 +6,9 @@ import { DocMindRetrievalVisual } from "@/components/visuals/DocMindRetrievalVis
 import { DevAgentTerminalVisual } from "@/components/visuals/DevAgentTerminalVisual";
 import { IntelStudyCircuitVisual } from "@/components/visuals/IntelStudyCircuitVisual";
 import { BeautyBangsLighthouseVisual } from "@/components/visuals/BeautyBangsLighthouseVisual";
-import { ArrowLeft, ExternalLink, Cpu, GitFork, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ExternalLink, Cpu, GitFork, ArrowUpRight, ArrowRight, CheckCircle2 } from "lucide-react";
 import { GithubIcon } from "@/components/icons/SocialIcons";
+import { VERIFIED_LINKS } from "@/data/projects";
 
 interface CaseStudyProps {
   params: Promise<{ slug: string }>;
@@ -24,13 +25,25 @@ export async function generateMetadata({ params }: CaseStudyProps): Promise<Meta
   const project = PROJECTS.find((p) => p.slug === slug);
   if (!project) return { title: "Project Not Found" };
 
+  const canonicalUrl = `${VERIFIED_LINKS.portfolio}/projects/${project.slug}/`;
+  const pageTitle = `${project.shortTitle} Case Study`;
+
   return {
-    title: `${project.shortTitle} Case Study | Tanmay Kotak`,
+    title: pageTitle,
     description: project.tagline,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: `${project.title} — Architectural Case Study`,
       description: project.tagline,
       type: "article",
+      url: canonicalUrl,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — Architectural Case Study`,
+      description: project.tagline,
     },
   };
 }
@@ -59,6 +72,8 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
   };
 
   const otherProjects = PROJECTS.filter((p) => p.slug !== slug);
+  const currentIndex = PROJECTS.findIndex((p) => p.slug === slug);
+  const nextProject = PROJECTS[(currentIndex + 1) % PROJECTS.length];
 
   return (
     <article className="min-h-screen py-10 sm:py-16">
@@ -251,10 +266,36 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
           </div>
         )}
 
-        {/* Other Projects Footer Navigation */}
+        {/* Next Project Cycling Callout & Navigation */}
         <div className="mt-16 pt-8 border-t border-base-border">
-          <p className="font-mono text-xs uppercase tracking-wider text-zinc-500 mb-4">
-            Explore other case studies
+          <div className="mb-8">
+            <span className="font-mono text-xs uppercase tracking-wider text-accent-light font-semibold block mb-2">
+              Next Case Study
+            </span>
+            <Link
+              href={`/projects/${nextProject.slug}`}
+              className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-accent/40 bg-accent-dim/30 p-5 sm:p-6 transition hover:border-accent hover:bg-accent-dim/50"
+            >
+              <div>
+                <span className="font-mono text-[11px] text-zinc-400 uppercase">
+                  Project 0{((currentIndex + 1) % PROJECTS.length) + 1} &mdash; {nextProject.shortTitle}
+                </span>
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-white group-hover:text-accent-light transition-colors mt-0.5">
+                  {nextProject.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-zinc-300 mt-1 line-clamp-1">
+                  {nextProject.tagline}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 font-mono text-xs font-semibold text-accent-light shrink-0">
+                <span>Next project</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Link>
+          </div>
+
+          <p className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-4">
+            All Case Studies
           </p>
           <div className="grid gap-3 sm:grid-cols-3">
             {otherProjects.map((other) => (
@@ -264,7 +305,7 @@ export default async function ProjectCaseStudyPage({ params }: CaseStudyProps) {
                 className="group flex flex-col justify-between rounded-lg border border-base-border bg-base-card p-4 transition hover:border-accent hover:bg-base-subtle"
               >
                 <div>
-                  <span className="font-mono text-[10px] text-zinc-500 uppercase">CASE STUDY</span>
+                  <span className="font-mono text-[10px] text-zinc-400 uppercase">CASE STUDY</span>
                   <p className="font-display text-sm font-semibold text-white group-hover:text-accent-light transition-colors mt-1">
                     {other.shortTitle}
                   </p>

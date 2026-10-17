@@ -10,12 +10,14 @@ export function ThemeToggle() {
   useEffect(() => {
     setMounted(true);
     const savedTheme = localStorage.getItem("tk_theme") as "dark" | "light" | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.classList.toggle("light", savedTheme === "light");
+    if (savedTheme === "light") {
+      setTheme("light");
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
     } else {
       setTheme("dark");
       document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
     }
   }, []);
 
@@ -23,7 +25,13 @@ export function ThemeToggle() {
     const nextTheme = theme === "dark" ? "light" : "dark";
     setTheme(nextTheme);
     localStorage.setItem("tk_theme", nextTheme);
-    document.documentElement.classList.toggle("light", nextTheme === "light");
+    if (nextTheme === "light") {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
+    } else {
+      document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
+    }
   };
 
   if (!mounted) {

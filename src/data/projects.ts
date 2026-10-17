@@ -25,7 +25,7 @@ export const PROJECTS: Project[] = [
     slug: "docmind",
     title: "DocMind: Multi-Tenant RAG Document Intelligence Platform",
     shortTitle: "DocMind",
-    tagline: "High-throughput multi-tenant RAG platform featuring hybrid semantic-lexical retrieval and token streaming over Server-Sent Events.",
+    tagline: "Multi-tenant RAG platform featuring hybrid semantic-lexical retrieval and token streaming over Server-Sent Events.",
     stack: [
       "FastAPI",
       "PostgreSQL (pgvector)",
@@ -49,12 +49,12 @@ export const PROJECTS: Project[] = [
       approach:
         "Designed an asynchronous ingestion pipeline with background workers returning HTTP 202 in under one second, paired with a hybrid CTE query in PostgreSQL that fuses dense pgvector cosine similarity with sparse tsvector keyword ranking weighted 70/30.",
       architecture:
-        "Client Upload (HTTP 202 Accepted) -> Background Worker (500-token Chunking & Batch Embeddings) -> PostgreSQL / pgvector + tsvector tables. Query Path: React Client -> FastAPI SSE Endpoint -> Hybrid CTE (70% Cosine Vector + 30% tsvector BM25-equivalent) -> Top-K Context Window -> Gemini 2.5 Flash Token Stream -> SSE Response.",
+        "Client Upload (HTTP 202 Accepted) -> Background Worker (500-token Chunking & Batch Embeddings) -> PostgreSQL / pgvector + tsvector tables. Query Path: React Client -> FastAPI SSE Endpoint -> Hybrid CTE (70% Cosine Vector + 30% tsvector full-text ranking) -> Top-K Context Window -> Gemini 2.5 Flash Token Stream -> SSE Response.",
       keyDecisions: [
-        "70/30 Hybrid Retrieval Fusion: Pure vector search missed alphanumeric product IDs and specific contract terminology; combining pgvector with tsvector inside a single Common Table Expression (CTE) eliminated a secondary Elasticsearch cluster while achieving sharp recall.",
+        "70/30 Hybrid Retrieval Fusion: Pure vector search missed alphanumeric product IDs and specific contract terminology; combining pgvector with tsvector inside a single Common Table Expression (CTE) keeps lexical and semantic search in one PostgreSQL query, with no separate search service to run.",
         "HTTP 202 Async Ingestion vs Synchronous Ingestion: Offloaded PDF chunking and embedding generation to background task workers, reducing API response times to under 1 second and preventing worker thread exhaustion.",
-        "Native Server-Sent Events (SSE) over WebSockets: SSE provides unidirectional streaming with automatic reconnection over standard HTTP/2, reducing protocol overhead for token-by-token LLM output.",
-        "Token-Bucket Rate Limiter & Tenant Isolation: Enforced multi-tenant row-level security and per-tenant rate limits to prevent noisy-neighbor issues on shared database instances.",
+        "Native Server-Sent Events (SSE) over WebSockets: SSE provides unidirectional streaming with automatic reconnection over standard HTTP, reducing protocol overhead for token-by-token LLM output.",
+        "Token-Bucket Rate Limiter & Tenant Isolation: Enforced tenant isolation and per-tenant rate limits to prevent noisy-neighbor issues on shared database instances.",
       ],
       whatNext: [
         "Integrate cross-encoder reranking (Cohere or bge-reranker) on top of the initial CTE candidate pool for high-precision legal document analysis.",
@@ -176,7 +176,6 @@ export const EXPERIENCE = [
       "Built the inbound logistics and delivery-scheduling engine for manufacturing plants and vendor networks: real-time shipment coordination, multi-batch commitments, gate check-ins, transaction-level revision guards, and multi-step state machines for safe order changes and rollbacks.",
       "Built an asynchronous document-intelligence pipeline with OCR extraction and purchase-order validation, plus automated tax and valuation processing, to remove manual gate check-in bottlenecks and catch billing discrepancies before SAP posting.",
     ],
-    hasStateMachineVisual: true,
   },
   {
     role: "Freelance Web Developer",
@@ -186,7 +185,6 @@ export const EXPERIENCE = [
     bullets: [
       "Delivered a statically generated Next.js/Tailwind client site scoring 100/98/100/100 on Lighthouse, with asset optimization and zero render-blocking resources.",
     ],
-    hasStateMachineVisual: false,
   },
 ];
 

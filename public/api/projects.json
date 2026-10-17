@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "docmind",
+    "title": "DocMind: Multi-Tenant RAG Document Intelligence Platform",
+    "summary": "Multi-tenant RAG platform featuring hybrid semantic-lexical retrieval and token streaming over Server-Sent Events.",
+    "stack": [
+      "FastAPI",
+      "PostgreSQL (pgvector)",
+      "React.js",
+      "Gemini API",
+      "Alembic",
+      "SSE"
+    ],
+    "repo": "https://github.com/TanmayKQ/DocMind",
+    "case_study": "https://tanmay-devprofile.vercel.app/projects/docmind/"
+  },
+  {
+    "slug": "devagent",
+    "title": "DevAgent: Autonomous CLI Coding Assistant",
+    "summary": "Autonomous coding assistant decoupling Python LangGraph reasoning from a Node.js execution harness with a two-phase commit safety loop.",
+    "stack": [
+      "Python",
+      "LangGraph",
+      "Node.js",
+      "TypeScript"
+    ],
+    "repo": "https://github.com/TanmayKQ/DevAgent",
+    "case_study": "https://tanmay-devprofile.vercel.app/projects/devagent/"
+  },
+  {
+    "slug": "intelstudy",
+    "title": "IntelStudy: AI-Powered Study Assistant",
+    "summary": "Resilient study assistant converting course materials into structured summaries and quizzes with circuit-breaker inference protection.",
+    "stack": [
+      "React.js",
+      "Node.js/Express",
+      "MongoDB",
+      "Firebase",
+      "HuggingFace"
+    ],
+    "repo": "https://github.com/TanmayKQ/IntelStudy",
+    "case_study": "https://tanmay-devprofile.vercel.app/projects/intelstudy/"
+  },
+  {
+    "slug": "beautyandbangs",
+    "title": "Beauty & Bangs: Client Website (Freelance)",
+    "summary": "Production salon client site statically generated with zero render-blocking resources, scoring 100/98/100/100 on Google Lighthouse.",
+    "stack": [
+      "Next.js",
+      "Tailwind CSS",
+      "Static Generation"
+    ],
+    "live": "https://beautyandbangs.vercel.app/",
+    "case_study": "https://tanmay-devprofile.vercel.app/projects/beautyandbangs/"
+  }
+]

@@ -34,6 +34,13 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileMenuOpen]);
 
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (typeof window !== "undefined" && window.location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const navLinks = [
     { label: "Work", href: "/#work" },
     { label: "Experience", href: "/#experience" },
@@ -51,10 +58,11 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Brand / Logo - Standard reliable homepage link */}
+        {/* Brand / Logo - Clickable, returns to home / scrolls to top */}
         <div className="flex items-center gap-3">
           <Link
             href="/"
+            onClick={handleLogoClick}
             aria-label="Tanmay Kotak - Return to top of homepage"
             className="group flex items-center gap-2.5 text-left font-mono text-sm tracking-tight text-zinc-100 transition focus-visible:outline-none"
           >
@@ -62,14 +70,9 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
               TK
             </div>
             <div className="hidden sm:block">
-              <div className="flex items-center gap-2">
-                <span className="font-display font-medium text-white group-hover:text-accent-light transition-colors">
-                  Tanmay Kotak
-                </span>
-                <span className="rounded bg-accent-dim px-1.5 py-0.5 text-[10px] font-mono text-accent-light">
-                  v2.0
-                </span>
-              </div>
+              <span className="font-display font-medium text-white group-hover:text-accent-light transition-colors">
+                Tanmay Kotak
+              </span>
             </div>
           </Link>
 
@@ -78,7 +81,7 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
             <span className="relative flex h-2 w-2">
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-neon" />
             </span>
-            <span>Open to internships</span>
+            <span>Open to internships &amp; full-time roles</span>
           </div>
         </div>
 
@@ -152,7 +155,7 @@ export function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2 pb-2 border-b border-base-border text-xs font-mono text-zinc-400">
               <span className="h-2 w-2 rounded-full bg-emerald-neon" />
-              <span>Open to SDE / Backend internships</span>
+              <span>Open to internships &amp; full-time roles</span>
             </div>
 
             {navLinks.map((link) => (

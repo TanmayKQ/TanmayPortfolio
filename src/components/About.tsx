@@ -7,7 +7,7 @@ export function About() {
     { label: "Based in", value: "Pune, India", icon: MapPin },
     { label: "Focus", value: "Backend + Applied AI", icon: Target },
     { label: "Graduating", value: "June 2027", icon: GraduationCap },
-    { label: "Looking for", value: "SDE / Backend / AI Engineer internships", icon: Clock },
+    { label: "Looking for", value: "Internships & full-time roles (SDE / Backend / AI)", icon: Clock },
   ];
 
   return (

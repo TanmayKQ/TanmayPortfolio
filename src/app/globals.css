@@ -146,3 +146,30 @@ section[id] {
   content-visibility: auto;
   contain-intrinsic-size: 1px 650px;
 }
+
+/* Light Mode Overrides */
+html.light body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+html.light .text-zinc-100 { color: #0f172a; }
+html.light .text-zinc-200 { color: #1e293b; }
+html.light .text-zinc-300 { color: #334155; }
+html.light .text-zinc-400 { color: #475569; }
+html.light .text-zinc-500 { color: #64748b; }
+html.light .text-white { color: #0f172a; }
+html.light .bg-black\/90,
+html.light .bg-black\/95,
+html.light .bg-black\/80 {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+html.light .bg-black\/40,
+html.light .bg-black\/60,
+html.light .bg-black\/70,
+html.light .bg-black\/20,
+html.light .bg-black\/30 {
+  background-color: #f8fafc;
+}
+

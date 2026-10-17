@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { Shell } from "@/components/Shell";
 import { VERIFIED_LINKS } from "@/data/projects";
@@ -7,14 +7,21 @@ import { VERIFIED_LINKS } from "@/data/projects";
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space",
-  display: "optional",
+  display: "swap",
   preload: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  display: "optional",
+  display: "swap",
+  preload: true,
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
   preload: true,
 });
 
@@ -101,16 +108,30 @@ export default function RootLayout({
     ],
   };
 
+  const themeInitScript = `
+    try {
+      var saved = localStorage.getItem('tk_theme');
+      if (saved === 'light') {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+      }
+    } catch(e) {}
+  `;
+
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans bg-base-dark text-zinc-100 min-h-screen bg-grid-pattern antialiased selection:bg-accent/25 selection:text-white`}
+        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${inter.variable} font-sans bg-base-dark text-zinc-100 min-h-screen bg-grid-pattern antialiased selection:bg-accent/25 selection:text-white transition-colors duration-150`}
       >
         <Shell>{children}</Shell>
       </body>

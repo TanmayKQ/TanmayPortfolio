@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/generate-api-json.mjs && next dev",
+    "prebuild": "node scripts/generate-api-json.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

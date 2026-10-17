@@ -35,7 +35,7 @@ const RETRIEVAL_STAGES: PipelineStep[] = [
     title: "Fused SQL CTE",
     sub: "70/30 Hybrid Ranking",
     details:
-      "Executes single PostgreSQL CTE combining pgvector cosine distance (70%) with tsvector BM25 match (30%).",
+      "Executes single PostgreSQL CTE combining pgvector cosine distance (70%) with tsvector keyword match (30%).",
     codeOrData:
       "WITH ranked_docs AS (\n  SELECT id, content,\n    (0.70 * (1 - (embedding <=> $1))) +\n    (0.30 * ts_rank(textsearch, plainto_tsquery($2))) AS fused_score\n  FROM document_chunks WHERE tenant_id = $3\n  ORDER BY fused_score DESC LIMIT 8\n)",
   },
@@ -100,11 +100,14 @@ export function DocMindRetrievalVisual({ variant = "compact" }: { variant?: "com
       className="rounded-xl border border-base-border bg-base-card overflow-hidden shadow-sm"
     >
       {/* Visual Header */}
-      <div className="flex items-center justify-between border-b border-base-border bg-base-subtle/80 px-4 py-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-base-border bg-base-subtle/80 px-4 py-2.5">
         <div className="flex items-center gap-2">
           <Database className="h-4 w-4 text-accent-light" />
           <span className="font-mono text-xs font-semibold text-zinc-200">
-            docmind_hybrid_retrieval.sql // 70/30 FUSED CTE
+            docmind_retrieval.sql
+          </span>
+          <span className="rounded border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-amber-300 font-semibold">
+            ILLUSTRATIVE SIMULATION
           </span>
         </div>
 

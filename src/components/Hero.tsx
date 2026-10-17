@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SystemTraceVisual } from "./SystemTraceVisual";
+import { ApiTerminal } from "./ApiTerminal";
 import { ArrowDown, ArrowDownToLine } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/SocialIcons";
 import { VERIFIED_LINKS } from "@/data/projects";
@@ -9,28 +9,22 @@ export function Hero() {
     <section
       id="hero"
       aria-label="Introduction and Overview"
-      className="relative overflow-hidden pt-8 pb-16 md:pt-14 md:pb-24"
+      className="relative overflow-hidden pt-6 pb-14 md:pt-12 md:pb-20"
     >
-      {/* Subtle, restrained depth accent */}
+      {/* Subtle depth accent */}
       <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
         <div className="h-[420px] w-[560px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(99,102,241,0.06)_0%,_transparent_70%)]" />
       </div>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           {/* Left Column: Narrative & Clear Positioning */}
           <div className="space-y-6">
-            {/* Eyebrow & Status */}
-            <div className="space-y-3">
+            {/* Eyebrow */}
+            <div>
               <div className="inline-flex items-center gap-2 rounded-md border border-base-border bg-base-card px-3 py-1 font-mono text-xs text-zinc-300">
                 <span className="text-accent-light font-semibold">// 00</span>
                 <span>TANMAY KOTAK &mdash; PUNE, IN</span>
-              </div>
-
-              {/* Status Chip */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-neon/30 bg-emerald-dim px-3 py-1 text-xs font-mono text-emerald-neon">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-neon" />
-                <span>Open to SDE / Backend / AI Engineer internships &middot; Graduating June 2027</span>
               </div>
             </div>
 
@@ -40,7 +34,7 @@ export function Hero() {
             </h1>
 
             {/* Subline */}
-            <p className="max-w-xl text-base leading-relaxed text-zinc-300 sm:text-lg">
+            <p className="max-w-xl text-base leading-relaxed text-zinc-300 sm:text-lg font-sans">
               Fourth-year Computer Engineering student building production APIs, SAP-integrated enterprise systems, RAG pipelines, and agentic AI tooling with Python, TypeScript, and Node.js.
             </p>
 
@@ -87,9 +81,9 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Signature System Pipeline Stage Inspector */}
+          {/* Right Column: Portfolio as an API Terminal */}
           <div className="w-full">
-            <SystemTraceVisual />
+            <ApiTerminal />
           </div>
         </div>
       </div>

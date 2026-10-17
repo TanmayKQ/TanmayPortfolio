@@ -41,13 +41,13 @@ export function Skills() {
         <div className="mb-10 space-y-2">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400">
             <span className="text-accent-light font-semibold">// 03</span>
-            <span className="uppercase tracking-[0.2em]">Verified Technical Stack</span>
+            <span className="uppercase tracking-[0.2em]">Technical Stack & Architecture</span>
           </div>
           <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Engineering stack & system patterns.
           </h2>
           <p className="max-w-2xl text-sm text-zinc-400 sm:text-base">
-            Select or hover any skill below to inspect its verified implementation across production codebases.
+            Select or hover any skill below to inspect which project it was shipped in.
           </p>
         </div>
 
@@ -134,10 +134,6 @@ export function Skills() {
                   </div>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-base-border/50 flex items-center justify-between text-[10px] font-mono text-zinc-400">
-                  <span>{group.skills.length} verified technologies</span>
-                  <span className="text-accent-light font-medium">Defensible</span>
-                </div>
               </div>
             );
           })}
